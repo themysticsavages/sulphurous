@@ -6,11 +6,26 @@
     <body style="background-color: #282828;">
         <br>
         
-        <h2 style="color: white; text-align: center;">Welcome!</h2>
+        <h1 style="color: white; text-align: center;">Welcome!</h1>
         <h3 style="color: white; text-align: center; font-size: small;">to our in progress Scratch clone... with dark mode</p>
 
         <br><br>
 
-        <h3 style="color: white; text-align: center; font-size: medium;">Care to search something?</h3>
+        <h3 style="color: white; text-align: center; font-size: medium;">Care to search something? Like an ID?</h3>
+        <div style="text-align: center;"> <input type="search" id="query" class="round1 dark" autocomplete="off"> <button type="submit" onclick="getreturn()" class="round2 dark">&nbsp;Search&nbsp;</button> </div>
     </body>
 </html>
+
+<script>
+    function getreturn() {
+        var inputVal = document.getElementById("query").value;
+        window.location.href = `/search/${inputVal}`
+    }
+</script>
+
+<style> 
+    .round1 { border-top-left-radius: 15px; border-bottom-left-radius: 15px; border: 1px #404040 solid; }
+    .round2 { border-top-right-radius: 15px; border-bottom-right-radius: 15px; }
+    .dark { color: white; background-color: #404040; border:none; }
+    .dark:hover { color: white; background-color: #606060; }
+</style>
