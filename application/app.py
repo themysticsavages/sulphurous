@@ -21,10 +21,13 @@ def run():
     def project(query):
         try:
             search = json.loads(str(Scratch.getInfo(query)).replace("'", '"'))
-            return re.sub('//rem', str(search['stats']['remixes']), re.sub('.id.', query, '{}'
-            .format(open('./html/getproject.html', encoding='utf-8').read()
-            .replace('//project-title', '{} by {}'.format(search['title'], search['author']))
-            .replace('//views', str(search['stats']['views'])))))
+            rep = {'//views': str(search['stats']['views']), '//rem': str(search['stats']['remixes']), '//stars': str(search['stats']['favorites']), '//loves': str(search['stats']['loves']), '.id.': query, '//project-title': '{} by {}'.format(search['title'], search['author'])}
+
+            rep = dict((re.escape(k), v) for k, v in rep.items())
+            pattern = re.compile("|".join(rep.keys()))
+            text = pattern.sub(lambda m: rep[re.escape(m.group(0))], open('./html/getproject.html', encoding='utf-8').read())
+
+            return text
         except Exception as e:
             logging.error('{}; 404 page sent'.format(e))
             return open('./html/404.html', encoding='utf-8').read()
@@ -34,9 +37,11 @@ def run():
         try:
             Scratch.cloneProj(query, file='./projcache/project{}.sb3'.format(query))
             return send_file('./projcache/project{}.sb3'.format(query))
+            
         except Exception as e:
             logging.error('{}; 404 page sent'.format(e))
             return open('./html/404.html', encoding='utf-8').read()
 
     server = WSGIServer(('0.0.0.0', 2000), app)
     server.serve_forever()
+    
