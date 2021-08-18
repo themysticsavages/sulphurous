@@ -1,2 +1,2 @@
 language = "python3"
-run = "python3 host.py"
+run = "python3 -m pip install -r requirements.txt && python3 host.py"
