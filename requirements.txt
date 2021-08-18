@@ -1,0 +1,4 @@
+gevent==21.8.0
+Flask==2.0.1
+scratchhh==0.2.72
+beautifulsoup4==4.9.3
