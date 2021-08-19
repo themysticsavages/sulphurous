@@ -1,7 +1,7 @@
 from scratchhh.scratchhh import Scratch
 from gevent.pywsgi import WSGIServer
+from dateutil import parser
 from flask import *
-import datetime
 import logging
 import json
 import os
@@ -16,7 +16,7 @@ def run():
 
     @app.route('/projects/<query>')
     def project(query):
-        if Scratch.exists(query) == True:
+        if Scratch.exists(query) == True and re.match('^[0-9]*$', query):
           search = json.loads(str(Scratch.getInfo(query)).replace("'", '"'))
           try:
             comments = Scratch.getProjComments(query, 3)
@@ -33,17 +33,29 @@ def run():
           if comments:
             try:
               if comments[0]:
-                  rep['//comment1'] = '<i>{}</i>: {}<br><p style="font-size: xx-small">{}</p>'.format(comments[0][0], comments[0][1], comments[0][2])
+                  try:
+                        parser.parse(comments[0][2])
+                        rep['//comment1'] = '<i>{}</i>: {}<br><p style="font-size: xx-small">{}</p>'.format(comments[0][0], comments[0][1], comments[0][2])
+                  except parser.ParserError:
+                        rep['//comment1'] = '<i>{}</i>: {}, {}<br><p style="font-size: xx-small">{}</p>'.format(comments[0][0], comments[0][1], comments[0][2], comments[0][3])
             except IndexError:
                   rep['//comment1'] = ''
             try:
               if comments[1]:
-                  rep['//comment2'] = '<i>{}</i>: {}<br><p style="font-size: xx-small">{}</p>'.format(comments[1][0], comments[1][1], comments[1][2])
+                  try:
+                        parser.parse(comments[1][2])
+                        rep['//comment2'] = '<i>{}</i>: {}<br><p style="font-size: xx-small">{}</p>'.format(comments[1][0], comments[1][1], comments[1][2])
+                  except parser.ParserError:
+                        rep['//comment2'] = '<i>{}</i>: {}, {}<br><p style="font-size: xx-small">{}</p>'.format(comments[1][0], comments[1][1], comments[1][2], comments[1][3])
             except IndexError:
                   rep['//comment2'] = ''
             try:
               if comments[2]:
-                  rep['//comment3'] = '<i>{}</i>: {}<br><p style="font-size: xx-small">{}</p>'.format(comments[2][0], comments[2][1], comments[2][2])
+                  try:
+                        parser.parse(comments[2][2])
+                        rep['//comment3'] = '<i>{}</i>: {}<br><p style="font-size: xx-small">{}</p>'.format(comments[2][0], comments[2][1], comments[2][2])
+                  except parser.ParserError:
+                        rep['//comment3'] = '<i>{}</i>: {}, {}<br><p style="font-size: xx-small">{}</p>'.format(comments[2][0], comments[2][1], comments[2][2], comments[2][3])
             except IndexError:
                   rep['//comment3'] = ''
           else:
@@ -57,7 +69,7 @@ def run():
 
           return text
         else:
-          print('Project did not exist; Returning 404 page')
+          print('Project did not exist or ID invalid; Returning 404 page')
           return open('./html/404.html', encoding='utf-8').read()
 
     @app.route('/projects/<query>/get', methods=['GET'])
@@ -83,23 +95,31 @@ def run():
           if comments:
             try:
               if comments[0]:
-                  rep['//comment1'] = '<i>{}</i>: {}<br><p style="font-size: xx-small">{}</p>'.format(comments[0][0], comments[0][1], comments[0][2])
+                  try:
+                        parser.parse(comments[0][2])
+                        rep['//comment1'] = '<i>{}</i>: {}<br><p style="font-size: xx-small">{}</p>'.format(comments[0][0], comments[0][1], comments[0][2])
+                  except parser.ParserError:
+                        rep['//comment1'] = '<i>{}</i>: {}, {}<br><p style="font-size: xx-small">{}</p>'.format(comments[0][0], comments[0][1], comments[0][2], comments[0][3])
             except IndexError:
                   rep['//comment1'] = ''
             try:
               if comments[1]:
-                  rep['//comment2'] = '<i>{}</i>: {}<br><p style="font-size: xx-small">{}</p>'.format(comments[1][0], comments[1][1], comments[1][2])
+                  try:
+                        parser.parse(comments[1][2])
+                        rep['//comment2'] = '<i>{}</i>: {}<br><p style="font-size: xx-small">{}</p>'.format(comments[1][0], comments[1][1], comments[1][2])
+                  except parser.ParserError:
+                        rep['//comment2'] = '<i>{}</i>: {}, {}<br><p style="font-size: xx-small">{}</p>'.format(comments[1][0], comments[1][1], comments[1][2], comments[1][3])
             except IndexError:
                   rep['//comment2'] = ''
             try:
               if comments[2]:
-                  rep['//comment3'] = '<i>{}</i>: {}<br><p style="font-size: xx-small">{}</p>'.format(comments[2][0], comments[2][1], comments[2][2])
+                  try:
+                        parser.parse(comments[2][2])
+                        rep['//comment3'] = '<i>{}</i>: {}<br><p style="font-size: xx-small">{}</p>'.format(comments[2][0], comments[2][1], comments[2][2])
+                  except parser.ParserError:
+                        rep['//comment3'] = '<i>{}</i>: {}, {}<br><p style="font-size: xx-small">{}</p>'.format(comments[2][0], comments[2][1], comments[2][2], comments[2][3])
             except IndexError:
                   rep['//comment3'] = ''
-          else:
-            rep['//comment1'] = '<sub>(None)</sub>'
-            rep['//comment2'] = ''
-            rep['//comment3'] = ''
 
           rep = dict((re.escape(k), v) for k, v in rep.items())
           pattern = re.compile("|".join(rep.keys()))
