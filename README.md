@@ -19,3 +19,6 @@ Make a GET request to return a Scratch project download .sb3
 Retrieve 3 comments from a Scratch project in raw HTML.
 
 ![search](https://raw.githubusercontent.com/ajskateboarder/stuff/main/scratchhh.web/scratchhh.comm.png)
+
+## `/projects/<id>/embed` endpoint
+Get a minimal version of a project from scratchhh.tk. Best used in embeds, obviously
