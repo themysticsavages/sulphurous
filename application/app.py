@@ -14,7 +14,7 @@ def run():
     def home():
         return '{}'.format(open('./html/index.html', encoding='utf-8').read())
 
-    @app.route('/projects/<query>')
+    @app.route('/projects/<query>/')
     def project(query):
         if Scratch.exists(query) == True and re.match('^[0-9]*$', query):
           search = json.loads(str(Scratch.getInfo(query)).replace("'", '"'))
@@ -72,7 +72,7 @@ def run():
           print('Project did not exist or ID invalid; Returning 404 page')
           return open('./html/404.html', encoding='utf-8').read()
 
-    @app.route('/projects/<query>/get', methods=['GET'])
+    @app.route('/projects/<query>/get/', methods=['GET'])
     def get(query):
         try:
             Scratch.cloneProj(query, file='./projcache/project{}.sb3'.format(query))
@@ -82,7 +82,7 @@ def run():
             print(e)
             return open('./html/404.html', encoding='utf-8').read()
 
-    @app.route('/projects/<query>/comments/get', methods=['GET'])
+    @app.route('/projects/<query>/comments/get/', methods=['GET'])
     def commentsget(query):
           try:
             comments = Scratch.getProjComments(query, 3)
@@ -126,7 +126,23 @@ def run():
           text = pattern.sub(lambda m: rep[re.escape(m.group(0))], open('./html/rawcomments.html', encoding='utf-8').read())
 
           return text
+    @app.route('/projects/<query>/embed/')
+    def embed(query):
+            try:
+                  search = json.loads(str(Scratch.getInfo(query)).replace("'", '"'))
+            except KeyError:
+                  return open('./html/404.html', encoding='utf-8').read()
+            rep = {'//views': str(search['stats']['views']), '//rem': str(search['stats']['remixes']), '//stars': str(search['stats']['favorites']), '//loves': str(search['stats']['loves']), '.id.': query, '//project-title': '{} by {}'.format(search['title'], search['author'])}
+            if not search['remix'] == 'False':
+                  rep['//rmixstatus'] = 'Remix of {} by {}'.format(Scratch.getInfo(str(search['remix']))['title'], Scratch.getInfo(str(search['remix']))['author'])
+            else:
+                  rep['//rmixstatus'] = ''
 
+            rep = dict((re.escape(k), v) for k, v in rep.items())
+            pattern = re.compile("|".join(rep.keys()))
+            text = pattern.sub(lambda m: rep[re.escape(m.group(0))], open('./html/embed.html', encoding='utf-8').read())
+
+            return text
 
     server = WSGIServer(('0.0.0.0', 2000), app)
     server.serve_forever()
