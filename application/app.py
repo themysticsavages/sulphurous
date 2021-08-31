@@ -2,10 +2,12 @@ from scratchhh.scratchhh import Scratch
 from gevent.pywsgi import WSGIServer
 from dateutil import parser
 from flask import *
-import logging
 import json
 import os
 import re
+
+# Just a side note, I am planning on moving all these endpoint functions
+#     into separate files, just to make everything look fancier :)
 
 app = Flask(__name__)
 
@@ -126,6 +128,7 @@ def run():
           text = pattern.sub(lambda m: rep[re.escape(m.group(0))], open('./html/rawcomments.html', encoding='utf-8').read())
 
           return text
+        
     @app.route('/projects/<query>/embed/')
     def embed(query):
             try:
@@ -143,6 +146,7 @@ def run():
             text = pattern.sub(lambda m: rep[re.escape(m.group(0))], open('./html/embed.html', encoding='utf-8').read())
 
             return text
+        
     @app.route('/projects/<query>/embed-light/')
     def embed_light(query):
             try:
@@ -160,9 +164,11 @@ def run():
             text = pattern.sub(lambda m: rep[re.escape(m.group(0))], open('./html/embed-light.html', encoding='utf-8').read())
 
             return text
+        
     @app.route('/whyus')
     def us():
       return open('./html/whyus.html', encoding='utf-8').read()
+
     @app.errorhandler(404)
     def page_not_found(e):
       return open('./html/404.html', encoding='utf-8').read()
