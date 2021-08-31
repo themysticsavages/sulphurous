@@ -6,7 +6,7 @@
 
     <!-- Meta stuff when you want to show off this on apps -->
 
-    <meta name="description" content="Basically a clone of scratch.mit.edu that looks better">
+    <meta name="description" content="Basically a clone of scratch.mit.edu that is kinda better">
     <meta property="og:image" content="https://i.imgur.com/VP7JQ2a.png">
     <meta property="og:image:type" content="image/jpeg">
     <meta property="og:image:width" content="200">
@@ -16,6 +16,12 @@
     <body style="background-color: #282828; overflow: hidden;">
         <img src="https://media.giphy.com/media/3oEhmXGELT5e155ajS/giphy.gif" id="Video">
         <div class="content">
+            <div class="topnav">
+                <a class="active" href="/"><img src="https://i.imgur.com/VP7JQ2a.png" width="25"></a>
+                <a href="https://github.com/themysticsavages/scratchhh.tk" target="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GitHub</a>
+                <a href="/whyus">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Why us?</a>
+              </div>
+            <br>
             <br>
 
             <img class="image" src="https://i.imgur.com/VP7JQ2a.png" width="75">
@@ -25,7 +31,7 @@
             <br><br>
     
             <h3 class="center" style="font-size: medium;">Care to search something? Like a project ID?</h3>
-            <div style="text-align: center;"> <input type="search" id="query" class="round1 dark" autocomplete="off"> <button type="submit" onclick="getreturn()" class="round2 dark">&nbsp;Search&nbsp;</button> </div>
+            <div style="text-align: center;"> <input type="search" id="query" class="round1 dark" autocomplete="off"> <button type="submit" onclick="getreturn()" class="round2 dark" id="abutton">&nbsp;Search&nbsp;</button> </div>
     
             <br> <hr class="header">
             <img src="https://www.nicepng.com/png/full/204-2043038_white-lightbulb-icon-light-bulb-icon-white.png" height="50" class="image"> <p class="center">Looking to contribute? <br> Check out the <a href="https://github.com/themysticsavages/scratchhh.web" target="blank">GitHub page!</a> </p>
@@ -43,6 +49,17 @@
 <script type="text/javascript"> // Since this website doesn't use queries YET, a custom redirect function is required 
 function getreturn() { var inputVal = document.getElementById("query").value; window.location.href = `/projects/${inputVal}` } </script>
 
+<script type="text/javascript"> // Enter key thing
+var input = document.getElementById("query");
+
+input.addEventListener("keyup", function(event) {
+  if (event.keyCode === 13) {
+    event.preventDefault();
+    document.getElementById("abutton").click();
+  }
+}); 
+</script>
+
 <style type="text/css"> 
     .round1 { border-top-left-radius: 15px; border-bottom-left-radius: 15px; border: 1px #404040 solid; }
     .round2 { border-top-right-radius: 15px; border-bottom-right-radius: 15px; }
@@ -53,4 +70,8 @@ function getreturn() { var inputVal = document.getElementById("query").value; wi
     .dark:hover { color: white; background-color: #606060; }
     #Video { position: absolute; opacity: 0.06; min-width: 100%; min-height: 100%; left: 0; right: 0;}
     .content { position: fixed; background: rgba(0, 0, 0, 0.06); color: #f1f1f1; width: 100%; padding: 20px; }
+    .topnav { background-color: rgba(0, 0, 0); top: 0; opacity: 0.5; position: fixed; text-align: center; overflow: hidden; left: 0; width: 100%; display: inline-block; }
+    .topnav a { display: inline-block; color: #f2f2f2; opacity: 0.5; text-align: center; text-decoration: none; font-size: 17px; height: 30px;}
+    .topnav a:hover { background: #000; color: #FFF; opacity: 2; }
+
 </style>

@@ -143,6 +143,29 @@ def run():
             text = pattern.sub(lambda m: rep[re.escape(m.group(0))], open('./html/embed.html', encoding='utf-8').read())
 
             return text
+    @app.route('/projects/<query>/embed-light/')
+    def embed_light(query):
+            try:
+                  search = json.loads(str(Scratch.getInfo(query)).replace("'", '"'))
+            except KeyError:
+                  return open('./html/404.html', encoding='utf-8').read()
+            rep = {'//views': str(search['stats']['views']), '//rem': str(search['stats']['remixes']), '//stars': str(search['stats']['favorites']), '//loves': str(search['stats']['loves']), '.id.': query, '//project-title': '{} by {}'.format(search['title'], search['author'])}
+            if not search['remix'] == 'False':
+                  rep['//rmixstatus'] = 'Remix of {} by {}'.format(Scratch.getInfo(str(search['remix']))['title'], Scratch.getInfo(str(search['remix']))['author'])
+            else:
+                  rep['//rmixstatus'] = ''
+
+            rep = dict((re.escape(k), v) for k, v in rep.items())
+            pattern = re.compile("|".join(rep.keys()))
+            text = pattern.sub(lambda m: rep[re.escape(m.group(0))], open('./html/embed-light.html', encoding='utf-8').read())
+
+            return text
+    @app.route('/whyus')
+    def us():
+      return open('./html/whyus.html', encoding='utf-8').read()
+    @app.errorhandler(404)
+    def page_not_found(e):
+      return open('./html/404.html', encoding='utf-8').read()
 
     server = WSGIServer(('0.0.0.0', 2000), app)
     server.serve_forever()
