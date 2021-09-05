@@ -2,12 +2,11 @@ from scratchhh.scratchhh import Scratch
 from gevent.pywsgi import WSGIServer
 from dateutil import parser
 from flask import *
+import logging
+import requests
 import json
 import os
 import re
-
-# Just a side note, I am planning on moving all these endpoint functions
-#     into separate files, just to make everything look fancier :)
 
 app = Flask(__name__)
 
@@ -19,18 +18,23 @@ def run():
     @app.route('/projects/<query>/')
     def project(query):
         if Scratch.exists(query) == True and re.match('^[0-9]*$', query):
-          search = json.loads(str(Scratch.getInfo(query)).replace("'", '"'))
+          search = Scratch.getInfo(query)
           try:
             comments = Scratch.getProjComments(query, 3)
           except IndexError:
             comments = None
           print(comments)
 
-          rep = {'//views': str(search['stats']['views']), '//rem': str(search['stats']['remixes']), '//stars': str(search['stats']['favorites']), '//loves': str(search['stats']['loves']), '.id.': query, '//project-title': '{} by {}'.format(search['title'], search['author'])}
+          rep = {'//views': str(search['stats']['views']), '//rem': str(search['stats']['remixes']), '//stars': str(search['stats']['favorites']), '//loves': str(search['stats']['loves']), '.id.': query, '//project-title': '{} by {}'.format(search['title'], search['author']), '//sharedate': str(search['share']).split('T')[0].replace('-', '.')}
           if not search['remix'] == 'False':
             rep['//rmixstatus'] = 'Remix of {} by {}'.format(Scratch.getInfo(str(search['remix']))['title'], Scratch.getInfo(str(search['remix']))['author'])
           else:
             rep['//rmixstatus'] = ''
+          
+          if not search['desc'] == '':
+            rep['//description'] = search['desc']
+            rep['<!--1'] = ''
+            rep['1-->'] = ''
       
           if comments:
             try:
@@ -128,7 +132,6 @@ def run():
           text = pattern.sub(lambda m: rep[re.escape(m.group(0))], open('./html/rawcomments.html', encoding='utf-8').read())
 
           return text
-        
     @app.route('/projects/<query>/embed/')
     def embed(query):
             try:
@@ -146,7 +149,6 @@ def run():
             text = pattern.sub(lambda m: rep[re.escape(m.group(0))], open('./html/embed.html', encoding='utf-8').read())
 
             return text
-        
     @app.route('/projects/<query>/embed-light/')
     def embed_light(query):
             try:
@@ -164,11 +166,9 @@ def run():
             text = pattern.sub(lambda m: rep[re.escape(m.group(0))], open('./html/embed-light.html', encoding='utf-8').read())
 
             return text
-        
     @app.route('/whyus')
     def us():
       return open('./html/whyus.html', encoding='utf-8').read()
-
     @app.errorhandler(404)
     def page_not_found(e):
       return open('./html/404.html', encoding='utf-8').read()

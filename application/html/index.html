@@ -20,7 +20,8 @@
                 <a class="active" href="/"><img src="https://i.imgur.com/VP7JQ2a.png" width="25"></a>
                 <a href="https://github.com/themysticsavages/scratchhh.tk" target="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GitHub</a>
                 <a href="/whyus">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Why us?</a>
-              </div>
+            </div>
+            <div id='ie'><br><alert style="font-size: medium;"><a href="https://browsehappy.com/">Why are you using Internet Explorer? It's not supported by most websites, including this one!</a></alert></div>
             <br>
             <br>
 
@@ -46,18 +47,15 @@
     -->
 </html>
 
-<script type="text/javascript"> // Since this website doesn't use queries YET, a custom redirect function is required 
-function getreturn() { var inputVal = document.getElementById("query").value; window.location.href = `/projects/${inputVal}` } </script>
+<script type="text/javascript"> 
+// Since this website doesn't use queries YET, a custom redirect function is required 
+function getreturn() { var inputVal = document.getElementById("query").value; window.location.href = `/projects/${inputVal}` } 
 
-<script type="text/javascript"> // Enter key thing
+// Enter key press event
 var input = document.getElementById("query");
+input.addEventListener("keyup", function(event) { if (event.keyCode === 13) { event.preventDefault(); document.getElementById("abutton").click(); } });
 
-input.addEventListener("keyup", function(event) {
-  if (event.keyCode === 13) {
-    event.preventDefault();
-    document.getElementById("abutton").click();
-  }
-}); 
+if (!/*@cc_on!@*/false || !!document.documentMode === true) { document.getElementById('ie').remove() }
 </script>
 
 <style type="text/css"> 
@@ -73,5 +71,6 @@ input.addEventListener("keyup", function(event) {
     .topnav { background-color: rgba(0, 0, 0); top: 0; opacity: 0.5; position: fixed; text-align: center; overflow: hidden; left: 0; width: 100%; display: inline-block; }
     .topnav a { display: inline-block; color: #f2f2f2; opacity: 0.5; text-align: center; text-decoration: none; font-size: 17px; height: 30px;}
     .topnav a:hover { background: #000; color: #FFF; opacity: 2; }
-
+    alert { background-color: rgb(253, 218, 13); color: black; display: inline-block; width: 100%; text-align: center; position: fixed; right: 0; text-decoration: none; }
+    alert:hover { background-color: rgb(293, 258, 53);  }
 </style>
