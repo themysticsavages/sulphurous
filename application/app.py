@@ -2,8 +2,8 @@ from scratchhh.scratchhh import Scratch
 from gevent.pywsgi import WSGIServer
 from dateutil import parser
 from flask import *
-import logging
-import requests
+import pathlib
+import filecmp
 import json
 import os
 import re
@@ -81,9 +81,28 @@ def run():
     @app.route('/projects/<query>/get/', methods=['GET'])
     def get(query):
         try:
-            Scratch.cloneProj(query, file='./projcache/project{}.sb3'.format(query))
-            return send_file('./projcache/project{}.sb3'.format(query))
-            
+            pathlib.Path('./projcache/{}'.format(query)).mkdir(parents=True, exist_ok=True)
+            get_prev = False
+            i = 0
+
+            if os.path.exists('./projcache/{}/project{}-{}.sb3'.format(query, query, i)) == True:
+                  while os.path.exists('./projcache/{}/project{}-{}.sb3'.format(query, query, i)) == True:
+                        if os.path.exists('./projcache/{}/project{}-{}.sb3'.format(query, query, i)) == False:
+                              break
+                        else:
+                              i += 1
+                  Scratch.cloneProj(query, './projcache/{}/project{}-{}.sb3'.format(query, query, i))
+                  if filecmp.cmp('./projcache/{}/project{}-{}.sb3'.format(query, query, i), './projcache/{}/project{}-{}.sb3'.format(query, query, i - 1)) == True:
+                        get_prev = './projcache/{}/project{}-{}.sb3'.format(query, query, i - 1)  
+                        os.remove('./projcache/{}/project{}-{}.sb3'.format(query, query, i))
+            elif os.path.exists('./projcache/{}/project{}-{}'.format(query, query, i)) == False:
+                  Scratch.cloneProj(query, './projcache/{}/project{}-{}.sb3'.format(query, query, i))
+
+            if not get_prev == False:
+                  return send_file(get_prev)
+            else:
+                  return send_file('./projcache/{}/project{}-{}.sb3'.format(query, query, i))
+
         except Exception as e:
             print(e)
             return open('./html/404.html', encoding='utf-8').read()
@@ -132,6 +151,7 @@ def run():
           text = pattern.sub(lambda m: rep[re.escape(m.group(0))], open('./html/rawcomments.html', encoding='utf-8').read())
 
           return text
+
     @app.route('/projects/<query>/embed/')
     def embed(query):
             try:
@@ -149,6 +169,7 @@ def run():
             text = pattern.sub(lambda m: rep[re.escape(m.group(0))], open('./html/embed.html', encoding='utf-8').read())
 
             return text
+
     @app.route('/projects/<query>/embed-light/')
     def embed_light(query):
             try:
@@ -166,12 +187,48 @@ def run():
             text = pattern.sub(lambda m: rep[re.escape(m.group(0))], open('./html/embed-light.html', encoding='utf-8').read())
 
             return text
-    @app.route('/whyus')
+
+    @app.route('/whyus/')
     def us():
       return open('./html/whyus.html', encoding='utf-8').read()
+
     @app.errorhandler(404)
     def page_not_found(e):
       return open('./html/404.html', encoding='utf-8').read()
+    
+    @app.route('/archive/')
+    def archive():
+      arc = { 'dirs': [] }
+      for dir in os.listdir('./projcache'):
+            arc['dirs'].append(dir)
+      return arc
+
+    @app.route('/archive/docs/')
+    def archive_home():
+          return open('./html/archivehelp.html', encoding='utf-8').read()
+
+    @app.route('/archive/<query>/')
+    def archive_dir(query):
+      if os.path.isdir('./projcache/{}'.format(query)) == True:
+            arc = { 'projects': [] }
+            for file in os.listdir('./projcache/{}'.format(query)):
+                  arc['projects'].append(str(file))
+            return arc
+      elif re.search('[@_!#$%^&*()<>?/\|}{~:]', query):
+            return redirect('https://youtu.be/xvFZjo5PgG0', 307)
+      else:
+            abort(404)
+
+    @app.route('/archive/<query>/<file>')
+    def archive_file(query, file):
+      if os.path.isdir('./projcache/{}'.format(query)) == True and pathlib.Path('./projcache/{}/{}'.format(query, file)).exists() == True:
+            return send_file('./projcache/{}/{}'.format(query, file))
+      elif re.search('[@_!#$%^&*()<>?/\|}{~:]', query):
+            return redirect('https://youtu.be/xvFZjo5PgG0', 307)
+      else:
+            abort(404)
+
+
 
     server = WSGIServer(('0.0.0.0', 2000), app)
     server.serve_forever()
