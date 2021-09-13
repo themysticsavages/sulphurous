@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+  <link rel="shortcut icon" type="image/jpg" href="https://raw.githubusercontent.com/ajskateboarder/stuff/main/more/logo.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+  <style>
+        .topnav { background-color: rgba(0, 0, 0); top: 0; opacity: 0.5; position: fixed; text-align: center; overflow: hidden; left: 0; width: 100%; display: inline-block; }
+        .topnav a { display: inline-block; color: #f2f2f2; opacity: 0.5; text-align: center; text-decoration: none; font-size: 17px; height: 30px;}
+        .topnav a:hover { background: #000; color: #FFF; opacity: 2; }
+        h1 { color: white; margin-left: 10px; }
+        cnt { color: white; margin: 10px; }
+        hr { width: 98.5%; border: 1px solid #808080; }
+        code { margin-left: 10px; background-color: #222; border: 1px solid #999; display: block; color: skyblue; padding: 10px; width: 40% }
+  </style>
+  <title>Archive docs</title>
+  <body style="background-color: #282828;">
+    <br>
+    <h1 style="font-size: 30px;">Welcome to the super-cool-and-not-so-secret project archive!</h1> <hr>
+    <cnt>
+      Here you can find simple documentation about the archive. I'm saying simple because it's really not that hard to understand.<br><br>
+    </cnt>
+    <h1 style="font-size: 25px;">Main endpoint</h1> <hr>
+    <cnt>
+      Yeah, it's <a href="https://scratchhh.tk/archive">here.</a> Going to this site gives the current archived projects' directories in JSON. Here's an example.<br><br> <code>{ "dirs": [ "142" ] }</code> <br>
+    </cnt>
+    <cnt>
+      While it may look a bit vague, it actually says a lot. Each directory is the name of a project ID. Which brings us to:<br><br>
+    </cnt>
+    <h1 style="font-size: 25px;">/archive/id endpoint</h1> <hr>
+    <cnt>
+      Using the project IDs, you can simply add it after the main endpoint and voila: <br><br> <code>{ "files": [ "project142-0.sb3", "project142-1.sb3" ] }</code> <br>
+    </cnt>
+    <cnt>
+      You get another JSON response, which contains all the versions available for a project (that have been archived) . The number increment indicates how new the project is. The higher, the newer.
+    </cnt>
+  </body>
+</html>
