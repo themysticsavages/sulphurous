@@ -1,5 +1,6 @@
 from scratchhh.scratchhh import Scratch
 from gevent.pywsgi import WSGIServer
+from .config import host, port
 from dateutil import parser
 from flask import *
 import pathlib
@@ -228,7 +229,5 @@ def run():
       else:
             abort(404)
 
-
-
-    server = WSGIServer(('0.0.0.0', 2000), app)
+    server = WSGIServer((host, port), app)
     server.serve_forever()
