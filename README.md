@@ -2,7 +2,7 @@
 
 ![root](https://raw.githubusercontent.com/ajskateboarder/stuff/main/scratchhh.web/scratchhh.web.png)
 
-scratchhh.tk is a clone of the website [scratch.mit.edu](https://scratch.mit.edu). This clone offers many features that are not available on Scratch.
+scratchhh.tk is basically [scratch.mit.edu](https://scratch.mit.edu) with more pros. This clone offers many features that are not available on Scratch.
 It's obviously available [here](https://scratchhh.tk). Just please note that the site may be down for maintainance or something. That's why I offer local hosting!
 
 # Installation
