@@ -4,7 +4,8 @@
 - [Installation](#installation)
   - [Config](#config)
 - [Endpoints](#endpoints)
-  - [GET /](#GET-/)
+  - [GET /](#get-)
+  - [GET /whyus](#get-whyus-)
 
 ![root](https://raw.githubusercontent.com/ajskateboarder/stuff/main/scratchhh.web/scratchhh.web.png)
 
