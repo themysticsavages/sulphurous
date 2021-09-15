@@ -9,8 +9,8 @@
   - GET /projects/
     - [GET /projects/:ID:/](#get-projectsid)
       - [GET /projects/:ID:/get](#get-projectsidget) 
-      - [GET /projects/:ID:/embed](#getprojectsidembed)
-      - [GET /projects/:ID:/embed-light](#getprojectsidembed-light)
+      - [GET /projects/:ID:/embed](#get-projectsidembed)
+      - [GET /projects/:ID:/embed-light](#get-projectsidembed-light)
     - GET /projects/:ID:/comments
       - [GET /projects/:ID:/comments/get](#get-projectsidcommentsget)
   - [GET /archive/](#get-archive)
