@@ -1,5 +1,11 @@
 # scratchhh.tk (wip)
 
+## Table of contents
+- [Installation](#installation)
+  - [Config](#config)
+- [Endpoints](#endpoints)
+  - [GET /](#root)
+
 ![root](https://raw.githubusercontent.com/ajskateboarder/stuff/main/scratchhh.web/scratchhh.web.png)
 
 scratchhh.tk is basically [scratch.mit.edu](https://scratch.mit.edu) with more pros. This clone offers many features that are not available on Scratch.
@@ -26,23 +32,7 @@ python host.py
 ```
 Bam! Scratchhh.tk is now running at http://IP:PORT
 
-# Endpoints
-
-## `/projects/<id>` endpoint
-Make a GET request to return project information in nicely styled HTML.
-
-![search](https://raw.githubusercontent.com/ajskateboarder/stuff/main/scratchhh.web/scratchhh.proj.png)
-
-https://{domain}/projects/{id}
-
-## `/projects/<id>/get` endpoint
-Make a GET request to return a Scratch project download .sb3
-
-## `/projects/<id>/comments/get` endpoint
-
-![comm](https://raw.githubusercontent.com/ajskateboarder/stuff/main/scratchhh.web/scratchhh.comm.png)
-
-Make a GET request to return top 3 Scratch comments as HTML.
-
-## `/archive` endpoint
-Fetch archived projects. More information can be found [here](https://scratchhh.tk/archive/docs)
+## Endpoints
+Wow
+## Root
+W0w
