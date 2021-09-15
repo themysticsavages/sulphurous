@@ -1,6 +1,4 @@
-# scratchhh.tk (wip)
-
-## Table of contents
+# Table of contents
 - [Installation](#installation)
   - [Config](#config)
 - [Endpoints](#endpoints)
@@ -17,6 +15,8 @@
     - [GET /archive/docs](#get-archivedocs)
     - [GET /archive/:ID:](#get-archiveid)
       - [GET /archive/:ID:/:PRO:](#get-archiveidpro)  
+
+# scratchhh.tk (wip)
 
 ![root](https://raw.githubusercontent.com/ajskateboarder/stuff/main/scratchhh.web/scratchhh.web.png)
 
