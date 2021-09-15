@@ -33,6 +33,25 @@ python host.py
 Bam! Scratchhh.tk is now running at http://IP:PORT
 
 ## Endpoints
-Wow
-## Root
-W0w
+Pretty much every endpoint with docs
+
+### GET /
+
+*Response: HTML*
+<br>
+The root landing page. Shows a bit of information.
+
+### GET /whyus/
+
+*Response: HTML*
+<br>
+Talks about why you might want to use this.
+
+### GET /projects/:ID:/
+
+*Response: HTML*
+<br>
+Return project information, such as likes, views, or comments.
+
+
+
