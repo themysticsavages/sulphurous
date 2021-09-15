@@ -5,7 +5,9 @@
   - [Config](#config)
 - [Endpoints](#endpoints)
   - [GET /](#get-)
-  - [GET /whyus](#get-whyus-)
+  - [GET /whyus](#get-whyus)
+  - GET /projects/
+    - [GET /projects/:ID:/get](#get-projects)
 
 ![root](https://raw.githubusercontent.com/ajskateboarder/stuff/main/scratchhh.web/scratchhh.web.png)
 
