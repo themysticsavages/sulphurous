@@ -7,7 +7,16 @@
   - [GET /](#get-)
   - [GET /whyus](#get-whyus)
   - GET /projects/
-    - [GET /projects/:ID:/get](#get-projects)
+    - [GET /projects/:ID:/](#get-projectsid)
+      - [GET /projects/:ID:/get](#get-projectsidget) 
+      - [GET /projects/:ID:/embed](#getprojectsidembed)
+      - [GET /projects/:ID:/embed-light](#getprojectsidembed-light)
+    - GET /projects/:ID:/comments
+      - [GET /projects/:ID:/comments/get](#get-projectsidcommentsget)
+  - [GET /archive/](#get-archive)
+    - [GET /archive/docs](#get-archivedocs)
+    - [GET /archive/:ID:](#get-archiveid)
+      - [GET /archive/:ID:/:PRO:](#get-archiveidpro)  
 
 ![root](https://raw.githubusercontent.com/ajskateboarder/stuff/main/scratchhh.web/scratchhh.web.png)
 
@@ -68,3 +77,38 @@ Return Scratch project as sb3. Can be used with Scratch Desktop.
 <br>
 Return top 3 comments for a Scratch project.
 
+### GET /projects/:ID:/embed
+
+*Response: HTML*
+<br>
+Return a smaller version of a project page which contains almost all the same information.
+
+### GET /projects/:ID:/embed-light
+
+*Response: HTML*
+<br>
+Basically an embed but adapted for light mode websites.
+
+### GET /archive/
+
+*Response: JSON*
+<br>
+Return all current archived project directories as JSON. It's JSON because it's more of an API thing.
+
+### GET /archive/docs/
+
+*Response: HTML*
+<br>
+Get detailed information about using the archive endpoint.
+
+### GET /archive/:ID:/
+
+*Response: JSON*
+<br>
+Return all current archived projects for a directory as JSON.
+
+### GET /archive/:ID:/:PRO:
+
+*Response: send_file()*
+<br>
+Get an archived project in a directory as sb3.
