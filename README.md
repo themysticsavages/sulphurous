@@ -4,7 +4,7 @@
 - [Installation](#installation)
   - [Config](#config)
 - [Endpoints](#endpoints)
-  - [GET /](#root)
+  - [GET /](#GET-/)
 
 ![root](https://raw.githubusercontent.com/ajskateboarder/stuff/main/scratchhh.web/scratchhh.web.png)
 
@@ -53,5 +53,15 @@ Talks about why you might want to use this.
 <br>
 Return project information, such as likes, views, or comments.
 
+### GET /projects/:ID:/get/
 
+*Response: send_file()*
+<br>
+Return Scratch project as sb3. Can be used with Scratch Desktop.
+
+### GET /projects/:ID:/comments/get
+
+*Response: Raw HTML*
+<br>
+Return top 3 comments for a Scratch project.
 
