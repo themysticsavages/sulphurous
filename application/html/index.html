@@ -1,31 +1,31 @@
 <!DOCTYPE html>
 <html>
-    <link rel="shortcut icon" type="image/jpg" href="https:raw.githubusercontent.com/ajskateboarder/stuff/main/more/logo.png">
+    <link rel="shortcut icon" type="image/jpg" href="https://raw.githubusercontent.com/ajskateboarder/stuff/main/more/logo.png">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https:maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <!-- Meta stuff when you want to show off this on apps -->
 
     <meta name="description" content="Basically a clone of scratch.mit.edu that is kinda better">
-    <meta property="og:image" content="https:raw.githubusercontent.com/ajskateboarder/stuff/main/more/logo.png">
+    <meta property="og:image" content="https://raw.githubusercontent.com/ajskateboarder/stuff/main/more/logo.png">
     <meta property="og:image:type" content="image/jpeg">
     <meta property="og:image:width" content="200">
     <meta property="og:image:height" content="200">
     
     <title>Scratchhh</title>
     <body style="background-color: #282828; overflow: hidden;">
-        <img src="https:raw.githubusercontent.com/ajskateboarder/stuff/main/more/matrix.gif" id="Video">
+        <img src="https://raw.githubusercontent.com/ajskateboarder/stuff/main/more/matrix.gif" id="Video">
         <div class="content">
             <div class="topnav">
-                <a class="active" href="/"><img src="https:raw.githubusercontent.com/ajskateboarder/stuff/main/more/logo.png" width="25"></a>
-                <a href="https:github.com/themysticsavages/scratchhh.tk" target="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GitHub</a>
+                <a class="active" href="/"><img src="https://raw.githubusercontent.com/ajskateboarder/stuff/main/more/logo.png" width="25"></a>
+                <a href="https://github.com/themysticsavages/scratchhh.tk" target="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GitHub</a>
                 <a href="/whyus">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Why us?</a>
             </div>
             <div id='ie'><br><alert style="font-size: medium;"><a href="https:browsehappy.com/">Why are you using Internet Explorer? It's not supported by most websites, including this one!</a></alert></div>
             <br>
             <br>
 
-            <img class="image" src="https:raw.githubusercontent.com/ajskateboarder/stuff/main/more/logo.png" width="75">
+            <img class="image" src="https://raw.githubusercontent.com/ajskateboarder/stuff/main/more/logo.png" width="75">
             <h1 class="center">Welcome!</h1>
             <h3  class="center" style="font-size: small;">to our in progress Scratch clone... with dark mode</p>
     
@@ -49,7 +49,14 @@
                     <a id='l7'></a>
                     <a id='l8'></a>
                     <a id='l9'></a>
-                    <a id='l0'></a>
+                    <a id='l10'></a>
+                </div>
+                <div id="scroll-text1">
+                    <a id='l11'></a>
+                    <a id='l12'></a>
+                    <a id='l13'></a>
+                    <a id='l14'></a>
+                    <a id='l15'></a>
                 </div>
             </div>
         </div>
@@ -68,16 +75,13 @@ if (!/*@cc_on!@*/false || !!document.documentMode === true) { document.getElemen
 
 <script type="text/javascript"> 
 window.onload = function() {
-fetch('https://scratchapinc.herokuapp.com/featured/').then(res => res.json()).then(res => {
-    let projects = res['community_featured_projects']
-    var i = 0
 
-    projects.forEach(project => {
-        document.getElementById(`l${i}`).innerText = project['id']
-        document.getElementById(`l${i}`).href = `https://scratchhh.tk/projects/${project['id']}`
-        i ++
-    })
-})
+setTimeout((function() { fetch('https://scratchapinc.herokuapp.com/featured/').then(res => res.json()).then(res => {
+    let projects = res['community_featured_projects']
+    var i = 1
+    projects.forEach(project => { document.getElementById(`l${i}`).innerText = project['id'];document.getElementById(`l${i}`).href = 'https://scratchhh.tk/projects/'+project['id'] ;i ++ })
+})}), 500)
+
 }
 </script>
 
@@ -96,6 +100,7 @@ fetch('https://scratchapinc.herokuapp.com/featured/').then(res => res.json()).th
     .topnav a:hover { background: #000; color: #FFF; opacity: 2; }
     alert { background-color: rgb(253, 218, 13); color: black; display: inline-block; width: 100%; text-align: center; position: fixed; right: 0; text-decoration: none; }
     alert:hover { background-color: rgb(293, 258, 53);  }
+    a { color: white }
 
     #scroll-container {
     overflow: hidden;
@@ -107,12 +112,12 @@ fetch('https://scratchapinc.herokuapp.com/featured/').then(res => res.json()).th
     -webkit-transform: translateX(100%);
     transform: translateX(100%);
     
-    -moz-animation: my-animation 15s linear infinite;
-    -webkit-animation: my-animation 15s linear infinite;
-    animation: my-animation 15s linear infinite;
+    -moz-animation: my-animation 25s linear infinite;
+    -webkit-animation: my-animation 25s linear infinite;
+    animation: my-animation 25s linear infinite;
     }
 
-    #scroll-text {
+    #scroll-text0 {
     
     -moz-transform: translateX(100%);
     -webkit-transform: translateX(100%);
@@ -123,7 +128,7 @@ fetch('https://scratchapinc.herokuapp.com/featured/').then(res => res.json()).th
     animation: my-animation 39s linear infinite;
     }
 
-    #scroll-text0 {
+    #scroll-text1 {
     -moz-transform: translateX(100%);
     -webkit-transform: translateX(100%);
     transform: translateX(100%);
