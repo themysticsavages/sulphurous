@@ -139,6 +139,6 @@ function sendCredits() {
     let e = document.getElementById("user").value,
         t = document.getElementById("pass").value;
     if (!e || !t) { return document.getElementById('error').innerText = 'Missing values' } else { document.getElementById('error').innerText = '' }
-    null != e && setCookie("username", Base64.encode(e), 365), null != t && setCookie("password", Base64.encode(t), 365)
+    null != e && setCookie("username", Base64.encode(e), 365), null != t && setCookie("password", Base64.encode(t), 365); window.location.href = '/'
 }
 </script>
