@@ -133,8 +133,8 @@ Get an archived project in a directory as sb3.
 <br>
 Post a comment on a particular project.
 
-Parameters (base64 encrypted):
+Parameters:
  - `pid`
- - `user`
- - `pass`
+ - `user` (send as base64)
+ - `pass` (send as base64)
  - `content`
