@@ -13,8 +13,12 @@
       - [GET /projects/:ID:/comments/get](#get-projectsidcommentsget)
   - [GET /archive/](#get-archive)
     - [GET /archive/docs](#get-archivedocs)
-    - [GET /archive/:ID:](#get-archiveid)
-      - [GET /archive/:ID:/:PRO:](#get-archiveidpro)  
+    - [GET /archive/search](#get-archivesearch)
+  - GET /api/
+      - [GET /api/archive/](#get-apiarchive)  
+        - [GET /api/archive/:ID:](#get-apiarchiveid)  
+          - [GET /api/archive/:ID:/:PRO:](#get-apiarchiveidpro) 
+      - [GET /api/postcomment/](#post-apipostcomment)   
 
 # scratchhh.tk (wip)
 
@@ -91,9 +95,9 @@ Basically an embed but adapted for light mode websites.
 
 ### GET /archive/
 
-*Response: JSON*
+*Response: HTML*
 <br>
-Return all current archived project directories as JSON. It's JSON because it's more of an API thing.
+Return a friendly search page to search for archived projects.
 
 ### GET /archive/docs/
 
@@ -101,14 +105,34 @@ Return all current archived project directories as JSON. It's JSON because it's 
 <br>
 Get detailed information about using the archive endpoint.
 
-### GET /archive/:ID:/
+### GET /archive/search
+
+*Response: HTML*
+<br>
+Search for archived projects under a directory. `q` parameter required.
+
+### GET /api/archive/
+<br>
+Get current project directories contain projects and their versions.
+
+### GET /api/archive/:ID:/
 
 *Response: JSON*
 <br>
 Return all current archived projects for a directory as JSON.
 
-### GET /archive/:ID:/:PRO:
+### GET /api/archive/:ID:/:PRO:
 
 *Response: send_file()*
 <br>
 Get an archived project in a directory as sb3.
+
+### POST /api/postcomment
+
+*Response: redirect(previous_url)*
+<br>
+Post a comment on a particular project.
+Parameters (base64 encrypted):
+ - `pid`
+ - `user`
+ - `pass`
