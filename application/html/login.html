@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+    <link rel="shortcut icon" type="image/jpg" href="https://raw.githubusercontent.com/ajskateboarder/stuff/main/more/logo.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <body style="background-color: #404040; color: white;" onload="check()">
+        <h1 style="margin: 10px;">Login</h1>
+        <hr class="header">
+        <label style="margin-left: 10px;">Enter your username: </label> <input class="box" id="user" type="text"> <br>
+        <label style="margin-left: 10px;">and it's password: </label> <input class="box" id="pass" type="text" autocomplete="off"> <br>
+        <button id="submit" style="margin-left: 10px;" class="dark" onclick="sendCredits()">Submit</button> <br>
+        <br><mark class="err" id="error"></mark>
+    </body>
+</html>
+<style type="text/css">
+        .dark { color: white; background-color: #303030; border: none; outline: none; }
+        .dark:hover { color: white; background-color: #404040; }
+        .header { height:2px; color: #808080; background-color: #808080; left: 0;  }
+        .box { background-color: #303030; color: white; border: none; }
+        .err { margin-left: 10px; }
+        mark { background-color: #D22B2B; color: red; }
+</style>
+<script>
+    var Base64 = {
+    _keyStr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
+    encode: function(e) {
+        var t = "";
+        var n, r, i, s, o, u, a;
+        var f = 0;
+        e = Base64._utf8_encode(e);
+        while (f < e.length) {
+            n = e.charCodeAt(f++);
+            r = e.charCodeAt(f++);
+            i = e.charCodeAt(f++);
+            s = n >> 2;
+            o = (n & 3) << 4 | r >> 4;
+            u = (r & 15) << 2 | i >> 6;
+            a = i & 63;
+            if (isNaN(r)) {
+                u = a = 64
+            } else if (isNaN(i)) {
+                a = 64
+            }
+            t = t + this._keyStr.charAt(s) + this._keyStr.charAt(o) + this._keyStr.charAt(u) + this._keyStr.charAt(a)
+        }
+        return t
+    },
+    decode: function(e) {
+        var t = "";
+        var n, r, i;
+        var s, o, u, a;
+        var f = 0;
+        e = e.replace(/[^A-Za-z0-9\+\/\=]/g, "");
+        while (f < e.length) {
+            s = this._keyStr.indexOf(e.charAt(f++));
+            o = this._keyStr.indexOf(e.charAt(f++));
+            u = this._keyStr.indexOf(e.charAt(f++));
+            a = this._keyStr.indexOf(e.charAt(f++));
+            n = s << 2 | o >> 4;
+            r = (o & 15) << 4 | u >> 2;
+            i = (u & 3) << 6 | a;
+            t = t + String.fromCharCode(n);
+            if (u != 64) {
+                t = t + String.fromCharCode(r)
+            }
+            if (a != 64) {
+                t = t + String.fromCharCode(i)
+            }
+        }
+        t = Base64._utf8_decode(t);
+        return t
+    },
+    _utf8_encode: function(e) {
+        e = e.replace(/\r\n/g, "\n");
+        var t = "";
+        for (var n = 0; n < e.length; n++) {
+            var r = e.charCodeAt(n);
+            if (r < 128) {
+                t += String.fromCharCode(r)
+            } else if (r > 127 && r < 2048) {
+                t += String.fromCharCode(r >> 6 | 192);
+                t += String.fromCharCode(r & 63 | 128)
+            } else {
+                t += String.fromCharCode(r >> 12 | 224);
+                t += String.fromCharCode(r >> 6 & 63 | 128);
+                t += String.fromCharCode(r & 63 | 128)
+            }
+        }
+        return t
+    },
+    _utf8_decode: function(e) {
+        var t = "";
+        var n = 0;
+        var r = c1 = c2 = 0;
+        while (n < e.length) {
+            r = e.charCodeAt(n);
+            if (r < 128) {
+                t += String.fromCharCode(r);
+                n++
+            } else if (r > 191 && r < 224) {
+                c2 = e.charCodeAt(n + 1);
+                t += String.fromCharCode((r & 31) << 6 | c2 & 63);
+                n += 2
+            } else {
+                c2 = e.charCodeAt(n + 1);
+                c3 = e.charCodeAt(n + 2);
+                t += String.fromCharCode((r & 15) << 12 | (c2 & 63) << 6 | c3 & 63);
+                n += 3
+            }
+        }
+        return t
+    }
+};
+
+function setCookie(e, t, n) {
+    const o = new Date;
+    o.setTime(o.getTime() + 24 * n * 60 * 60 * 1e3);
+    let i = "expires=" + o.toGMTString();
+    document.cookie = e + "=" + t + ";" + i + ";path=/"
+}
+
+function getCookie(e) {
+    let t = e + "=",
+        n = decodeURIComponent(document.cookie).split(";");
+    for (let e = 0; e < n.length; e++) {
+        let o = n[e];
+        for (;
+            " " == o.charAt(0);) o = o.substring(1);
+        if (0 == o.indexOf(t)) return o.substring(t.length, o.length)
+    }
+    return ""
+}
+
+function check() {
+    if (getCookie('username') && getCookie('password')) window.location.href = '/'
+}
+
+function sendCredits() {
+    let e = document.getElementById("user").value,
+        t = document.getElementById("pass").value;
+    if (!e || !t) { return document.getElementById('error').innerText = 'Missing values' } else { document.getElementById('error').innerText = '' }
+    null != e && setCookie("username", Base64.encode(e), 365), null != t && setCookie("password", Base64.encode(t), 365)
+}
+</script>

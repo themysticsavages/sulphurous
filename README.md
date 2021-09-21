@@ -13,11 +13,8 @@
       - [GET /projects/:ID:/comments/get](#get-projectsidcommentsget)
   - [GET /archive/](#get-archive)
     - [GET /archive/docs](#get-archivedocs)
-    - [GET /archive/search](#get-archivesearch)
-  - GET /api/
-    - [GET /api/archive](#get-apiarchive) 
-      - [GET /api/archive/:ID:](#get-apiarchiveid)
-        - [GET /api/archive/:ID:/:PRO:](#get-apiarchiveidpro)  
+    - [GET /archive/:ID:](#get-archiveid)
+      - [GET /archive/:ID:/:PRO:](#get-archiveidpro)  
 
 # scratchhh.tk (wip)
 
@@ -94,21 +91,9 @@ Basically an embed but adapted for light mode websites.
 
 ### GET /archive/
 
-*Response: HTML*
-<br>
-Return a simple search page to get archived projects. Made it in a rush.
-
-### GET /archive/search/
-
-*Response: HTML*
-<br>
-Get results for a search. Please remember you also need the `q` parameter and it accepts integers only.
-
-### GET /api/archive/
-
 *Response: JSON*
 <br>
-Return all current archived project directories as JSON.
+Return all current archived project directories as JSON. It's JSON because it's more of an API thing.
 
 ### GET /archive/docs/
 
@@ -116,13 +101,13 @@ Return all current archived project directories as JSON.
 <br>
 Get detailed information about using the archive endpoint.
 
-### GET /api/archive/:ID:/
+### GET /archive/:ID:/
 
 *Response: JSON*
 <br>
 Return all current archived projects for a directory as JSON.
 
-### GET /api/archive/:ID:/:PRO:
+### GET /archive/:ID:/:PRO:
 
 *Response: send_file()*
 <br>

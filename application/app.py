@@ -4,10 +4,11 @@ from functools import update_wrapper
 from datetime import timedelta
 from .config import host, port
 from dateutil import parser
+import scratchclient
 from flask import *
-import requests
 import pathlib
 import filecmp
+import base64
 import json
 import os
 import re
@@ -146,10 +147,10 @@ def run():
             elif os.path.exists('./projcache/{}/project{}-{}'.format(query, query, i)) == False:
                   Scratch.cloneProj(query, './projcache/{}/project{}-{}.sb3'.format(query, query, i))
 
-            if not get_prev == False:
-                  return send_file(get_prev)
-            else:
+            if get_prev == False:
                   return send_file('./projcache/{}/project{}-{}.sb3'.format(query, query, i))
+            else:
+                 return send_file(get_prev)
 
         except Exception as e:
             print(e)
@@ -272,7 +273,7 @@ def run():
       else:
             abort(404)
 
-    @app.route('/api/archive/<query>/<file>')
+    @app.route('/api/archive/<query>/<file>/')
     @crossdomain(origin='*')
     def archive_file(query, file):
       if os.path.isdir('./projcache/{}'.format(query)) == True and pathlib.Path('./projcache/{}/{}'.format(query, file)).exists() == True:
@@ -282,7 +283,7 @@ def run():
       else:
             abort(404)
 
-    @app.route('/archive')
+    @app.route('/archive/')
     def archive():
           return open('./html/archive.html').read()
 
@@ -304,6 +305,29 @@ def run():
                       return html.replace('//id', args.get('q'))+'</p> </body> </html>'
                 else:
                       abort(404)
+
+    @app.get('/login/')
+    def login():
+          return open('./html/login.html').read()
+
+    @app.get('/api/sendcomment/')
+    def sendcomment():
+          args = request.args
+          if args.get('user') == '' or args.get('pass') == '' or args.get('content') == '' or args.get('id') == '':
+                abort(404)
+          else:
+                user = base64.b64decode(args.get('user').encode('ascii')).decode('ascii')
+                passwd = base64.b64decode(args.get('pass').encode('ascii')).decode('ascii')
+
+                cnt = args.get('content')
+                pid = args.get('pid')
+
+                scratchclient.ScratchSession(user, passwd).get_project(pid).post_comment(cnt)
+
+          return redirect('/projects/{}'.format(pid))
+                
+                  
+
 
     server = WSGIServer((host, port), app)
     server.serve_forever()

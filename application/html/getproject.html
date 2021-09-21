@@ -23,9 +23,14 @@
         color: skyblue;
         padding: 10px;
         }
+        .dark { color: white; background-color: #202020; border:none; }
+        .dark:hover { color: white; background-color: #303030; }
+        .round1 { border-top-left-radius: 15px; border-bottom-left-radius: 15px; border: 1px #404040 solid; }
+        .round2 { border-top-right-radius: 15px; border-bottom-right-radius: 15px; }
+        .box { background-color: #303030; color: white; border: none; }
     </style>
     <title>//project-title</title>
-    <body style="background-color: #282828;">
+    <body style="background-color: #282828;" onload="checkCookie()">
             <div class="topnav">
                 <a class="active" href="/"><img src="https://raw.githubusercontent.com/ajskateboarder/stuff/main/more/logo.png" width="25"></a>
                 <a href="https://github.com/themysticsavages/scratchhh.tk" target="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GitHub</a>
@@ -43,7 +48,7 @@
         </a>
         <br><br> 👁 //views views • ⑂ //rem remixes • ✰ //stars stars • ♡ //loves loves
         <br> Uploaded on //sharedate
-        <br><br> Wanna use this project locally? Download it <a href="./.id./get">here.</a>
+        <br><br> Wanna use this project locally? Download it <a href="/projects/.id./get">here.</a>
         <!--0 <br> Or check out the archive <a href="/archive/search?q=.id.">here.</a> 0-->
     </div>
     <!--1
@@ -52,6 +57,17 @@
        //description
     </div>
     1-->
+    <div class="jdiv">
+        <h5>Post a comment!</h5>
+        <a href="/login"><button class="dark round1 round2" id="login">&nbsp;Login&nbsp;</button></a>
+        <form action="/api/sendcomment" onsubmit="document.getElementById('user').value = getCookie('username'); document.getElementById('pass').value = getCookie('password'); document.getElementById('id').value = window.location.pathname.split('/')[2]; if (document.getElementById('comment').value.length == 0 ||  document.getElementById('comment').value.search(/[^\s]/) === -1 || document.getElementById('comment').value.startsWith(' ')) { event.preventDefault() }">
+            <input id="comment" class="box" width="300px" maxlength="500" type="hidden" name="content"> 
+            <input id="user" type="hidden" name="user" value="">
+            <input id="pass" type="hidden" name="pass" value="">
+            <input id="id" type="hidden" name="pid" value="">
+            <input id="send" type="hidden" class="dark round1 round2" value="&nbsp;Send&nbsp;">
+        </form>
+    </div>
     <div class="jdiv">
         <h5>Latest comments</h5>
         //comment1
@@ -65,4 +81,40 @@
         </code>
     </div>
     </body>
+    <script>
+    function setCookie(cname,cvalue,exdays) {
+        const d = new Date();
+        d.setTime(d.getTime() + (exdays*24*60*60*1000));
+        let expires = "expires=" + d.toGMTString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+        }
+    
+        function getCookie(cname) {
+        let name = cname + "=";
+        let decodedCookie = decodeURIComponent(document.cookie);
+        let ca = decodedCookie.split(';');
+        for(let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+        }
+    
+        function checkCookie() {
+        if (getCookie('username') && getCookie('password')) {
+        document.getElementById('login').remove()
+        document.getElementById('comment').type = 'text'
+        document.getElementById('send').type = 'submit'
+        }
+        }
+
+        function checkVal() {
+        if (document.getElementById('comment').value.length == 0) return
+        }
+    </script>
 </html>

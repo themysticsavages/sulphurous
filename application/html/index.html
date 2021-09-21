@@ -14,14 +14,14 @@
     
     <title>Scratchhh</title>
     <body style="background-color: #282828; overflow: hidden;">
-        <img src="https://raw.githubusercontent.com/ajskateboarder/stuff/main/more/matrix.gif" id="Video">
-        <div class="content">
+        <img src="https://raw.githubusercontent.com/ajskateboarder/stuff/main/more/matrix.gif" id="Video" >
+        <div class="content" style="height: 100%; overflow-y: auto;">
             <div class="topnav">
                 <a class="active" href="/"><img src="https://raw.githubusercontent.com/ajskateboarder/stuff/main/more/logo.png" width="25"></a>
                 <a href="https://github.com/themysticsavages/scratchhh.tk" target="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GitHub</a>
                 <a href="/whyus">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Why us?</a>
             </div>
-            <div id='ie'><br><alert style="font-size: medium;"><a href="https:browsehappy.com/">Why are you using Internet Explorer? It's not supported by most websites, including this one!</a></alert></div>
+            <div id='ie'><br><alert style="font-size: medium;"><a href="https://browsehappy.com/">Why are you using Internet Explorer? It's not supported by most websites, including this one!</a></alert></div>
             <br>
             <br>
 
@@ -60,6 +60,10 @@
                 </div>
             </div>
         </div>
+        <div class="bottomtext">
+            <a href="https://scratchhh.tk/archive/docs">The Archive</a>
+            <a href="https://github.com/themysticsavages">&nbsp;&nbsp;&nbsp;Made by themysticsavages</a>
+        </div>
     </body>
     <!--
       made by themysticsavages with love and too many online images
@@ -87,6 +91,7 @@ setTimeout((function() { fetch('https://scratchapinc.herokuapp.com/featured/').t
 
 <style type="text/css"> 
     .round1 { border-top-left-radius: 15px; border-bottom-left-radius: 15px; border: 1px #404040 solid; }
+    .bottomtext { background: rgba(0, 0, 0, 0.06); color: white; bottom: 0; position: absolute; left: 0; width: 100%; padding: 15px; }
     .round2 { border-top-right-radius: 15px; border-bottom-right-radius: 15px; }
     .center { color: white; text-align: center; }
     .header { height:2px; border-width:0; color: #808080; background-color: #808080; width: 95%;}
@@ -101,63 +106,10 @@ setTimeout((function() { fetch('https://scratchapinc.herokuapp.com/featured/').t
     alert { background-color: rgb(253, 218, 13); color: black; display: inline-block; width: 100%; text-align: center; position: fixed; right: 0; text-decoration: none; }
     alert:hover { background-color: rgb(293, 258, 53);  }
     a { color: white }
-
-    #scroll-container {
-    overflow: hidden;
-    }
-
-    #scroll-text {
-    
-    -moz-transform: translateX(100%);
-    -webkit-transform: translateX(100%);
-    transform: translateX(100%);
-    
-    -moz-animation: my-animation 25s linear infinite;
-    -webkit-animation: my-animation 25s linear infinite;
-    animation: my-animation 25s linear infinite;
-    }
-
-    #scroll-text0 {
-    
-    -moz-transform: translateX(100%);
-    -webkit-transform: translateX(100%);
-    transform: translateX(100%);
-
-    -moz-animation: my-animation 39s linear infinite;
-    -webkit-animation: my-animation 39s linear infinite;
-    animation: my-animation 39s linear infinite;
-    }
-
-    #scroll-text1 {
-    -moz-transform: translateX(100%);
-    -webkit-transform: translateX(100%);
-    transform: translateX(100%);
-    
-    -moz-animation: my-animation 44s linear infinite;
-    -webkit-animation: my-animation 44s linear infinite;
-    animation: my-animation 44s linear infinite;
-    }
-
-    @-moz-keyframes my-animation {
-    from { -moz-transform: translateX(100%); }
-    to { -moz-transform: translateX(-100%); }
-    }
-
-    @-webkit-keyframes my-animation {
-    0% { -webkit-transform: translateX(100%); }
-    100% { -webkit-transform: translateX(-100%); }
-    }
-
-    @keyframes my-animation {
-    from {
-        -moz-transform: translateX(100%);
-        -webkit-transform: translateX(100%);
-        transform: translateX(100%);
-    }
-    to {
-        -moz-transform: translateX(-100%);
-        -webkit-transform: translateX(-100%);
-        transform: translateX(-100%);
-    }
-    }
+    #scroll-container{overflow:hidden}
+    #scroll-text{-moz-transform:translateX(100%);-webkit-transform:translateX(100%);transform:translateX(100%);-moz-animation:my-animation 25s linear infinite;-webkit-animation:my-animation 25s linear infinite;animation:my-animation 25s linear infinite}
+    #scroll-text0{-moz-transform:translateX(100%);-webkit-transform:translateX(100%);transform:translateX(100%);-moz-animation:my-animation 39s linear infinite;-webkit-animation:my-animation 39s linear infinite;animation:my-animation 39s linear infinite}
+    #scroll-text1{-moz-transform:translateX(100%);-webkit-transform:translateX(100%);transform:translateX(100%);-moz-animation:my-animation 44s linear infinite;-webkit-animation:my-animation 44s linear infinite;animation:my-animation 44s linear infinite}
+    @-moz-keyframes my-animation{from{-moz-transform:translateX(100%)}to{-moz-transform:translateX(-100%)}}@-webkit-keyframes my-animation{0%{-webkit-transform:translateX(100%)}100%{-webkit-transform:translateX(-100%)}}
+    @keyframes my-animation{from{-moz-transform:translateX(100%);-webkit-transform:translateX(100%);transform:translateX(100%)}to{-moz-transform:translateX(-100%);-webkit-transform:translateX(-100%);transform:translateX(-100%)}}
 </style>
