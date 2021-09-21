@@ -132,7 +132,9 @@ Get an archived project in a directory as sb3.
 *Response: redirect(previous_url)*
 <br>
 Post a comment on a particular project.
+
 Parameters (base64 encrypted):
  - `pid`
  - `user`
  - `pass`
+ - `content`
