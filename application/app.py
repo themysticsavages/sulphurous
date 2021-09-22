@@ -326,7 +326,11 @@ def run():
 
           return redirect('/projects/{}'.format(pid))
                 
-                  
+    @app.get('/api/checkuser/')
+    @crossdomain('*')
+    def checkuser():
+      args = request.args
+      return str(Scratch.exists(args.get('user')))
 
 
     server = WSGIServer((host, port), app)
