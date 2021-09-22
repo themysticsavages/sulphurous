@@ -6,6 +6,10 @@
 
     <!-- Meta stuff when you want to show off this on apps -->
 
+    <head>
+      <meta name="google-site-verification" content="NcjyZgipXuXqiXI0zs5fou6Umd2CjPYCohIf33RUYb8" />
+    </head>
+
     <meta name="description" content="Basically a clone of scratch.mit.edu that is kinda better">
     <meta property="og:image" content="https://raw.githubusercontent.com/ajskateboarder/stuff/main/more/logo.png">
     <meta property="og:image:type" content="image/jpeg">
@@ -17,46 +21,49 @@
         <img src="https://raw.githubusercontent.com/ajskateboarder/stuff/main/more/matrix.gif" id="Video" >
         <div class="content" style="height: 100%; overflow-y: auto;">
             <div class="topnav">
-                <a class="active" href="/"><img src="https://raw.githubusercontent.com/ajskateboarder/stuff/main/more/logo.png" width="25"></a>
+                &nbsp;&nbsp;&nbsp;<a class="active" href="/"><img src="https://raw.githubusercontent.com/ajskateboarder/stuff/main/more/logo.png" width="25"></a>
                 <a href="https://github.com/themysticsavages/scratchhh.tk" target="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GitHub</a>
                 <a href="/whyus">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Why us?</a>
+                <div style="text-align:right; float:right; right:0">
+                <a href="/login" id="text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Login&nbsp;&nbsp;&nbsp;</a>
+                </div>
             </div>
             <div id='ie'><br><alert style="font-size: medium;"><a href="https://browsehappy.com/">Why are you using Internet Explorer? It's not supported by most websites, including this one!</a></alert></div>
             <br>
             <br>
 
-            <img class="image" src="https://raw.githubusercontent.com/ajskateboarder/stuff/main/more/logo.png" width="75">
-            <h1 class="center">Welcome!</h1>
-            <h3  class="center" style="font-size: small;">to our in progress Scratch clone... with dark mode</p>
+            <img class="image spinnything" src="https://raw.githubusercontent.com/ajskateboarder/stuff/main/more/logo.png" width="75">
+            <h1 class="center">Scratchhh</h1>
+            <h3  class="center" style="font-size: small;">as user-friendly as I could ever make it</p>
     
-            <br><br>
+            <br>
     
-            <h3 class="center" style="font-size: medium;">Care to search something? Like a project ID?</h3>
+            <h3 class="center" style="font-size: medium;">Enter any project ID here... (like 142!)</h3>
             <div style="text-align: center;"> <input type="search" id="query" class="round1 dark" autocomplete="off"> <button type="submit" onclick="getreturn()" class="round2 dark" id="abutton">&nbsp;Search&nbsp;</button> </div>
     
             <br>
             <h1 style="text-align: center; font-size: large;">Featured projects</h1><hr class="header">
             <div id="scroll-container">
                 <div id="scroll-text">
-                    <a id='l1'></a>
-                    <a id='l2'></a>
-                    <a id='l3'></a>
-                    <a id='l4'></a>
-                    <a id='l5'></a>
+                    <a id='l1' title=""></a>
+                    <a id='l2' title=""></a>
+                    <a id='l3' title=""></a>
+                    <a id='l4' title=""></a>
+                    <a id='l5' title=""></a>
                 <div>
                 <div id="scroll-text0">
-                    <a id='l6'></a>
-                    <a id='l7'></a>
-                    <a id='l8'></a>
-                    <a id='l9'></a>
-                    <a id='l10'></a>
+                    <a id='l6' title=""></a>
+                    <a id='l7' title=""></a>
+                    <a id='l8' title=""></a>
+                    <a id='l9' title=""></a>
+                    <a id='l10' title=""></a>
                 </div>
                 <div id="scroll-text1">
-                    <a id='l11'></a>
-                    <a id='l12'></a>
-                    <a id='l13'></a>
-                    <a id='l14'></a>
-                    <a id='l15'></a>
+                    <a id='l11' title=""></a>
+                    <a id='l12' title=""></a>
+                    <a id='l13' title=""></a>
+                    <a id='l14' title=""></a>
+                    <a id='l15' title=""></a>
                 </div>
             </div>
         </div>
@@ -78,20 +85,50 @@ if (!/*@cc_on!@*/false || !!document.documentMode === true) { document.getElemen
 </script>
 
 <script type="text/javascript"> 
+function getCookie(cname) {
+  let name = cname + "=";
+  let decodedCookie = decodeURIComponent(document.cookie);
+  let ca = decodedCookie.split(';');
+  for(let i = 0; i <ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+decodeBase64 = function(s) {
+    var e={},i,b=0,c,x,l=0,a,r='',w=String.fromCharCode,L=s.length;
+    var A="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+    for(i=0;i<64;i++){e[A.charAt(i)]=i;}
+    for(x=0;x<L;x++){
+        c=e[s.charAt(x)];b=(b<<6)+c;l+=6;
+        while(l>=8){((a=(b>>>(l-=8))&0xff)||(x<(L-2)))&&(r+=w(a));}
+    }
+    return r;
+};
+
 window.onload = function() {
 
 setTimeout((function() { fetch('https://scratchapinc.herokuapp.com/featured/').then(res => res.json()).then(res => {
     let projects = res['community_featured_projects']
     var i = 1
     projects.forEach(project => { document.getElementById(`l${i}`).innerText = project['id'];document.getElementById(`l${i}`).href = 'https://scratchhh.tk/projects/'+project['id'] ;i ++ })
+    document.getElementById(`l${i}`).title = project['title']
 })}), 500)
-
+if (getCookie('username') != '') {
+document.getElementById('text').innerHTML = `&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hey ${decodeBase64(getCookie('username'))}!&nbsp;&nbsp;&nbsp;`
+document.getElementById('text').removeAttribute('href')
+}
 }
 </script>
 
 <style type="text/css"> 
     .round1 { border-top-left-radius: 15px; border-bottom-left-radius: 15px; border: 1px #404040 solid; }
-    .bottomtext { background: rgba(0, 0, 0, 0.06); color: white; bottom: 0; position: absolute; left: 0; width: 100%; padding: 15px; }
+    .bottomtext { background: rgba(0, 0, 0, 0.06); color: white; bottom: 0; position: absolute; left: 0; width: 100%; padding: 15px; text-decoration: none; }
     .round2 { border-top-right-radius: 15px; border-bottom-right-radius: 15px; }
     .center { color: white; text-align: center; }
     .header { height:2px; border-width:0; color: #808080; background-color: #808080; width: 95%;}
@@ -100,8 +137,8 @@ setTimeout((function() { fetch('https://scratchapinc.herokuapp.com/featured/').t
     .dark:hover { color: white; background-color: #606060; }
     #Video { position: absolute; opacity: 0.06; min-width: 100%; min-height: 100%; left: 0; right: 0;}
     .content { position: fixed; background: rgba(0, 0, 0, 0.06); color: #f1f1f1; width: 100%; padding: 20px; }
-    .topnav { background-color: rgba(0, 0, 0); top: 0; opacity: 0.5; position: fixed; text-align: center; overflow: hidden; left: 0; width: 100%; display: inline-block; }
-    .topnav a { display: inline-block; color: #f2f2f2; opacity: 0.5; text-align: center; text-decoration: none; font-size: 17px; height: 30px;}
+    .topnav { background-color: rgba(0, 0, 0); top: 0; opacity: 0.5; position: fixed; text-align: left;overflow: hidden; left: 0; width: 100%; display: inline-block; }
+    .topnav a { display: inline-block; color: #f2f2f2; opacity: 0.5; text-align:left; text-decoration: none; font-size: 17px; height: 30px;}
     .topnav a:hover { background: #000; color: #FFF; opacity: 2; }
     alert { background-color: rgb(253, 218, 13); color: black; display: inline-block; width: 100%; text-align: center; position: fixed; right: 0; text-decoration: none; }
     alert:hover { background-color: rgb(293, 258, 53);  }
@@ -112,4 +149,7 @@ setTimeout((function() { fetch('https://scratchapinc.herokuapp.com/featured/').t
     #scroll-text1{-moz-transform:translateX(100%);-webkit-transform:translateX(100%);transform:translateX(100%);-moz-animation:my-animation 44s linear infinite;-webkit-animation:my-animation 44s linear infinite;animation:my-animation 44s linear infinite}
     @-moz-keyframes my-animation{from{-moz-transform:translateX(100%)}to{-moz-transform:translateX(-100%)}}@-webkit-keyframes my-animation{0%{-webkit-transform:translateX(100%)}100%{-webkit-transform:translateX(-100%)}}
     @keyframes my-animation{from{-moz-transform:translateX(100%);-webkit-transform:translateX(100%);transform:translateX(100%)}to{-moz-transform:translateX(-100%);-webkit-transform:translateX(-100%);transform:translateX(-100%)}}
+    .spinnything { transform: rotate(360deg); transition: transform 0.5s; }
+    .spinnything:active { transform: rotate(0deg);
+  transition:  0s; }
 </style>
