@@ -20,7 +20,7 @@
           - [GET /api/archive/:ID:/:PRO:](#get-apiarchiveidpro) 
       - [GET /api/postcomment/](#post-apipostcomment)   
 
-# scratchhh.xyz (wip)
+# scratchhh.tk (wip)
 
 ![root](https://raw.githubusercontent.com/ajskateboarder/stuff/main/scratchhh.web/scratchhh.web.png)
 

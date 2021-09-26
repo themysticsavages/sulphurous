@@ -135,10 +135,13 @@ function check() {
     if (getCookie('username') && getCookie('password')) window.location.href = '/'
 }
 
-function sendCredits() {
+async function sendCredits() {
     let e = document.getElementById("user").value,
         t = document.getElementById("pass").value;
     if (!e || !t) { return document.getElementById('error').innerText = 'Missing values' } else { document.getElementById('error').innerText = '' }
-    null != e && setCookie("username", Base64.encode(e), 365), null != t && setCookie("password", Base64.encode(t), 365); window.location.href = '/'
+    var status = 0
+
+    await fetch('https://devscratchhhtk.ajskateboarder.repl.co/isuser/'+e).then(res => res.text()).then(res => { if (res === 'false') { return document.getElementById('error').innerText = 'No such user.' } })
+    if (status === 0) { setCookie('username', Base64.encode(e));setCookie('password', Base64.encode(t));window.location.href = '/' }
 }
 </script>

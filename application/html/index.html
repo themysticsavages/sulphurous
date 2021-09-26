@@ -7,7 +7,7 @@
     <!-- Meta stuff when you want to show off this on apps -->
 
     <head>
-      <meta name="google-site-verification" content="NcjyZgipXuXqiXI0zs5fou6Umd2CjPYCohIf33RUYb8" />
+      <meta name="google-site-verification" content="l98bvOiW5dimqGQrE5ujk4YPUfvcEXWX1FDbYN1c9Os" />
     </head>
 
     <meta name="description" content="Basically a clone of scratch.mit.edu that is kinda better">
@@ -25,15 +25,16 @@
                 <a href="https://github.com/themysticsavages/scratchhh.tk" target="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GitHub</a>
                 <a href="/whyus">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Why us?</a>
                 <div style="text-align:right; float:right; right:0">
+                  <a href="/backpack" id="backpack" hidden>Backpack</a>
                 <a href="/login" id="text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Login&nbsp;&nbsp;&nbsp;</a>
                 </div>
             </div>
-            <div id='ie'><br><alert style="font-size: medium;"><a href="https://browsehappy.com/">Why are you using Internet Explorer? It's not supported by most websites, including this one!</a></alert></div>
+            <div id='ie'><br><alert style="font-size: medium;"><a href="https://browsehappy.com/">Hmmm... this site doesn't support your browser very well!</a></alert></div>
             <br>
             <br>
 
             <img class="image spinnything" src="https://raw.githubusercontent.com/ajskateboarder/stuff/main/more/logo.png" width="75">
-            <h1 class="center">Scratchhh</h1>
+            <h1 class="center">scratchhh.xyz</h1>
             <h3  class="center" style="font-size: small;">as user-friendly as I could ever make it</p>
     
             <br>
@@ -66,10 +67,6 @@
                     <a id='l15' title=""></a>
                 </div>
             </div>
-        </div>
-        <div class="bottomtext">
-            <a href="https://scratchhh.tk/archive/docs">The Archive</a>
-            <a href="https://github.com/themysticsavages">&nbsp;&nbsp;&nbsp;Made by themysticsavages</a>
         </div>
     </body>
     <!--
@@ -116,19 +113,20 @@ window.onload = function() {
 setTimeout((function() { fetch('https://scratchapinc.herokuapp.com/featured/').then(res => res.json()).then(res => {
     let projects = res['community_featured_projects']
     var i = 1
-    projects.forEach(project => { document.getElementById(`l${i}`).innerText = project['id'];document.getElementById(`l${i}`).href = 'https://scratchhh.tk/projects/'+project['id'] ;i ++ })
+    projects.forEach(project => { document.getElementById(`l${i}`).innerText = project['id'];document.getElementById(`l${i}`).href = 'https://scratchhh.xyz/projects/'+project['id'] ;i ++ })
     document.getElementById(`l${i}`).title = project['title']
 })}), 500)
 if (getCookie('username') != '') {
 document.getElementById('text').innerHTML = `&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hey ${decodeBase64(getCookie('username'))}!&nbsp;&nbsp;&nbsp;`
 document.getElementById('text').removeAttribute('href')
+document.getElementById('backpack').hidden = false
 }
 }
 </script>
 
 <style type="text/css"> 
     .round1 { border-top-left-radius: 15px; border-bottom-left-radius: 15px; border: 1px #404040 solid; }
-    .bottomtext { background: rgba(0, 0, 0, 0.06); color: white; bottom: 0; position: absolute; left: 0; width: 100%; padding: 15px; text-decoration: none; }
+    .bottomtext { background: rgba(0, 0, 0, 0.06); color: white; left: 0; width: 100%; padding: 15px; text-decoration: none; position: absolute; height:5% }
     .round2 { border-top-right-radius: 15px; border-bottom-right-radius: 15px; }
     .center { color: white; text-align: center; }
     .header { height:2px; border-width:0; color: #808080; background-color: #808080; width: 95%;}
@@ -143,9 +141,10 @@ document.getElementById('text').removeAttribute('href')
     alert { background-color: rgb(253, 218, 13); color: black; display: inline-block; width: 100%; text-align: center; position: fixed; right: 0; text-decoration: none; }
     alert:hover { background-color: rgb(293, 258, 53);  }
     a { color: white }
+    a:hover { color: grey }
     #scroll-container{overflow:hidden}
-    #scroll-text{-moz-transform:translateX(100%);-webkit-transform:translateX(100%);transform:translateX(100%);-moz-animation:my-animation 25s linear infinite;-webkit-animation:my-animation 25s linear infinite;animation:my-animation 25s linear infinite}
-    #scroll-text0{-moz-transform:translateX(100%);-webkit-transform:translateX(100%);transform:translateX(100%);-moz-animation:my-animation 39s linear infinite;-webkit-animation:my-animation 39s linear infinite;animation:my-animation 39s linear infinite}
+    #scroll-text{-moz-transform:translateX(100%);-webkit-transform:translateX(100%);transform:translateX(100%);-moz-animation:my-animation 25s linear infinite;-webkit-animation:my-animation 42s linear infinite;animation:my-animation 25s linear infinite}
+    #scroll-text0{-moz-transform:translateX(100%);-webkit-transform:translateX(100%);transform:translateX(100%);-moz-animation:my-animation 39s linear infinite;-webkit-animation:my-animation 43s linear infinite;animation:my-animation 39s linear infinite}
     #scroll-text1{-moz-transform:translateX(100%);-webkit-transform:translateX(100%);transform:translateX(100%);-moz-animation:my-animation 44s linear infinite;-webkit-animation:my-animation 44s linear infinite;animation:my-animation 44s linear infinite}
     @-moz-keyframes my-animation{from{-moz-transform:translateX(100%)}to{-moz-transform:translateX(-100%)}}@-webkit-keyframes my-animation{0%{-webkit-transform:translateX(100%)}100%{-webkit-transform:translateX(-100%)}}
     @keyframes my-animation{from{-moz-transform:translateX(100%);-webkit-transform:translateX(100%);transform:translateX(100%)}to{-moz-transform:translateX(-100%);-webkit-transform:translateX(-100%);transform:translateX(-100%)}}

@@ -6,15 +6,16 @@ from .config import host, port
 from dateutil import parser
 import scratchclient
 from flask import *
+import requests
 import pathlib
 import filecmp
+import zipfile
 import base64
 import json
 import os
 import re
 
 app = Flask(__name__)
-
 def run():
     def crossdomain(origin=None, methods=None, headers=None, max_age=21600, attach_to_all=True, automatic_options=True):
       if methods is not None:
@@ -310,6 +311,11 @@ def run():
     def login():
           return open('./html/login.html').read()
 
+    @app.get('/api/')
+    @crossdomain('*')
+    def api():
+          return { 'ok?':'nokidding','why':'non-cors api passthrough' } 
+
     @app.get('/api/sendcomment/')
     def sendcomment():
           args = request.args
@@ -332,6 +338,60 @@ def run():
       args = request.args
       return str(Scratch.exists(args.get('user')))
 
+    @app.get('/backpack/')
+    def backpack():
+      return open('./html/backpack.html').read()
 
+    @app.get('/backpack/get/')
+    def getbackpack():
+      args = request.args
+      def download(url:str, file:str):
+        r = requests.get(url, stream=True)
+
+        if r.status_code == 200:
+            with open(file, 'wb') as f:
+                for chunk in r.iter_content(1024):
+                    f.write(chunk)
+            f.close()
+
+      def zipdir():
+            with zipfile.ZipFile('./projcache/assets.zip', 'w') as zipObj:
+                  for folderName, subfolders, filenames in os.walk('./projcache/assets'):
+                        for filename in filenames:
+                              filePath = os.path.join(folderName, filename)
+                              zipObj.write(filePath, os.path.basename(filePath))
+
+      def get_user_backpack():
+                  user = base64.b64decode(args.get('user').encode('ascii')).decode('ascii')
+                  passwd = base64.b64decode(args.get('pass').encode('ascii')).decode('ascii')
+            
+                  sess = scratchclient.ScratchSession(user, passwd)
+                  headers = {
+                        "x-csrftoken": sess.csrf_token,
+                        "X-Token": sess.token,
+                        "x-requested-with": "XMLHttpRequest",
+                        "Cookie": "scratchcsrftoken="
+                        + sess.csrf_token
+                        + ";scratchlanguage=en;scratchsessionsid="
+                        + sess.session_id
+                        + ";",
+                        "referer": "https://scratch.mit.edu/users/" + user + "/",
+                  }
+                  req = requests.get('https://backpack.scratch.mit.edu/'+user+'/', headers=headers)
+                  return req.text
+
+      if args.get('user') == '' or args.get('pass') == '':
+            abort(404)
+      else:
+            os.mkdir('./projcache/assets')
+            userb = json.loads(get_user_backpack())
+            for cnt in userb:
+                  if '.zip' in cnt['body']: continue
+                  if '.json' in cnt['body']: continue
+
+                  download('https://assets.scratch.mit.edu/{}'.format(cnt['body']),'./projcache/assets/{}'.format(cnt['body']))
+            zipdir()
+      return send_file('./projcache/assets.zip')
+            
     server = WSGIServer((host, port), app)
     server.serve_forever()
