@@ -4,6 +4,9 @@
 - [Endpoints](#endpoints)
   - [GET /](#get-)
   - [GET /whyus](#get-whyus)
+  - [GET /login](#get-login)
+  - [GET /backpack/](#get-backpack)
+    - [GET /backpack/get](#get-backpackget) 
   - GET /projects/
     - [GET /projects/:ID:/](#get-projectsid)
       - [GET /projects/:ID:/get](#get-projectsidget) 
@@ -15,10 +18,11 @@
     - [GET /archive/docs](#get-archivedocs)
     - [GET /archive/search](#get-archivesearch)
   - GET /api/
-      - [GET /api/archive/](#get-apiarchive)  
+      - [GET /api/archive/](#get-apiarchive) 
         - [GET /api/archive/:ID:](#get-apiarchiveid)  
           - [GET /api/archive/:ID:/:PRO:](#get-apiarchiveidpro) 
-      - [GET /api/postcomment/](#post-apipostcomment)   
+      - [GET /api/postcomment/](#get-apipostcomment)
+      - [GET /api/checkuser/](#get-checkuser) 
 
 # scratchhh.tk (wip)
 
@@ -63,6 +67,24 @@ The root landing page. Shows a bit of information.
 <br>
 Talks about why you might want to use this.
 
+### GET /login/
+
+*Response: HTML*
+<br>
+Login with a valid Scratch account! Once logged in, your login info is stored as cookies and is used when required.
+
+### GET /backpack/
+
+*Response: HTML*
+<br>
+Return all assets like images and music (not sprites though).
+
+### GET /backpack/get/
+
+*Response: send_file()*
+<br>
+Get all your assets in a convenient ZIP file.
+
 ### GET /projects/:ID:/
 
 *Response: HTML*
@@ -75,19 +97,19 @@ Return project information, such as likes, views, or comments.
 <br>
 Return Scratch project as sb3. Can be used with Scratch Desktop.
 
-### GET /projects/:ID:/comments/get
+### GET /projects/:ID:/comments/get/
 
 *Response: Raw HTML*
 <br>
 Return top 3 comments for a Scratch project.
 
-### GET /projects/:ID:/embed
+### GET /projects/:ID:/embed/
 
 *Response: HTML*
 <br>
 Return a smaller version of a project page which contains almost all the same information.
 
-### GET /projects/:ID:/embed-light
+### GET /projects/:ID:/embed-light/
 
 *Response: HTML*
 <br>
@@ -105,11 +127,14 @@ Return a friendly search page to search for archived projects.
 <br>
 Get detailed information about using the archive endpoint.
 
-### GET /archive/search
+### GET /archive/search/
 
 *Response: HTML*
 <br>
-Search for archived projects under a directory. `q` parameter required.
+Search for archived projects under a directory.
+
+Parameters:
+ - `q`
 
 ### GET /api/archive/
 <br>
@@ -121,20 +146,29 @@ Get current project directories contain projects and their versions.
 <br>
 Return all current archived projects for a directory as JSON.
 
-### GET /api/archive/:ID:/:PRO:
+### GET /api/archive/:ID:/:PRO:/
 
 *Response: send_file()*
 <br>
 Get an archived project in a directory as sb3.
 
-### POST /api/postcomment
+### GET /api/postcomment/
 
-*Response: redirect(previous_url)*
+*Response: redirect()*
 <br>
 Post a comment on a particular project.
+Yeah I know, it's a GET request.
 
 Parameters:
  - `pid`
  - `user` (send as base64)
  - `pass` (send as base64)
  - `content`
+
+### GET /api/checkuser/
+
+*Response: JSON*
+<br>
+See if a user exists but much easier.
+
+And that's it.
