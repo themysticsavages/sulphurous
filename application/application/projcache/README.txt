@@ -1,1 +1,0 @@
-This is where temporary projects go when they need to be downloaded.
