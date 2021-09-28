@@ -36,6 +36,7 @@
                 <a href="https://github.com/themysticsavages/scratchhh.tk" target="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GitHub</a>
                 <a href="/whyus">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Why us?</a>
                 <div style="text-align:right; float:right; right:0">
+                <a href="/backpack" id="backpack" hidden>Backpack</a>
                 <a href="/login" id="text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Login&nbsp;&nbsp;&nbsp;</a>
                 </div>
             </div>
@@ -71,7 +72,7 @@
             <input id="id" type="hidden" name="pid" value="">
             <input id="send" type="hidden" class="dark round2" value="&nbsp;Send&nbsp;">
         </form>
-                <div style="font-size:small; color:grey">Your comment will be posted on your account you logged in with.</div> 
+                <div style="font-size:small; color:grey" id="msg">Your comment will be posted on your account you logged in with.</div> 
     </div>
     <div class="jdiv">
         <h5>Latest comments</h5>
@@ -121,18 +122,26 @@
         function checkCookie() {
         if (getCookie('username') && getCookie('password')) {
         document.getElementById('login').remove()
+
         document.getElementById('comment').type = 'text'
         document.getElementById('send').type = 'submit'
+
+        fetch('https://scratchapinc.herokuapp.com/projects/.id./[').then(r => r.json()).then(r => {
+          if (r['comments_allowed'] == false) {
+            document.getElementById('msg').innerText = 'Oh, comment posting is turned off for this project!'
+            document.getElementById('comment').type = 'hidden'
+            document.getElementById('send').type = 'hidden'
+          }
+        })
+
         document.getElementById('text').innerHTML = `&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hey ${ decodeBase64(getCookie('username'))}!&nbsp;&nbsp;&nbsp;`
         document.getElementById('text').href = ''
+        document.getElementById('backpack').hidden = false
         }
         }
 
         function checkVal() {
         if (document.getElementById('comment').value.length == 0) return
         }
-  </script>
-  <script>
-    document.write('ok')
   </script>
 </html>

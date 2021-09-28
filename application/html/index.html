@@ -27,7 +27,7 @@
                 <div style="text-align:right; float:right; right:0">
                   <a href="/backpack" id="backpack" hidden>Backpack</a>
                 <a href="/login" id="text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Login&nbsp;&nbsp;&nbsp;</a>
-                </div>
+            </div>
             </div>
             <div id='ie'><br><alert style="font-size: medium;"><a href="https://browsehappy.com/">Hmmm... this site doesn't support your browser very well!</a></alert></div>
             <br>
@@ -113,8 +113,7 @@ window.onload = function() {
 setTimeout((function() { fetch('https://scratchapinc.herokuapp.com/featured/').then(res => res.json()).then(res => {
     let projects = res['community_featured_projects']
     var i = 1
-    projects.forEach(project => { document.getElementById(`l${i}`).innerText = project['id'];document.getElementById(`l${i}`).href = 'https://scratchhh.xyz/projects/'+project['id'] ;i ++ })
-    document.getElementById(`l${i}`).title = project['title']
+    projects.forEach(project => { document.getElementById(`l${i}`).innerText = project['title'];document.getElementById(`l${i}`).href = 'https://scratchhh.xyz/projects/'+project['id'] ;i ++ })
 })}), 500)
 if (getCookie('username') != '') {
 document.getElementById('text').innerHTML = `&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hey ${decodeBase64(getCookie('username'))}!&nbsp;&nbsp;&nbsp;`
@@ -151,4 +150,22 @@ document.getElementById('backpack').hidden = false
     .spinnything { transform: rotate(360deg); transition: transform 0.5s; }
     .spinnything:active { transform: rotate(0deg);
   transition:  0s; }
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding: 12px 16px;
+  z-index: 1;
+}
+
+.dropdown:hover .dropdown-content {
+  display: inline-block;
+}
 </style>
