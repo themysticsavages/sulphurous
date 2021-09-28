@@ -66,6 +66,13 @@ def run():
     def fivehundred():
         abort(500)
 
+    @app.route('/search/')
+    def search():
+        args = request.args
+        if not args.get('q'): return 'Search for something!!'
+
+        return open('./html/search.html', encoding='utf-8').read().replace('.s.', args.get('q'))
+
     @app.route('/projects/<query>/')
     def project(query):
         if Scratch.exists(query) == True and re.match('^[0-9]*$', query):

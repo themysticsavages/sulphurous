@@ -39,7 +39,7 @@
     
             <br>
     
-            <h3 class="center" style="font-size: medium;">Enter any project ID here... (like 142!)</h3>
+            <h3 class="center" style="font-size: medium;">Enter some project name... (like Paper Minecraft!)</h3>
             <div style="text-align: center;"> <input type="search" id="query" class="round1 dark" autocomplete="off"> <button type="submit" onclick="getreturn()" class="round2 dark" id="abutton">&nbsp;Search&nbsp;</button> </div>
     
             <br>
@@ -75,7 +75,7 @@
 </html>
 
 <script type="text/javascript"> 
-function getreturn() { var inputVal = document.getElementById("query").value; window.location.href = `/projects/${inputVal}` } 
+function getreturn() { var inputVal = document.getElementById("query").value; window.location.href = `/search?q=${inputVal}` } 
 var input = document.getElementById("query");
 input.addEventListener("keyup", function(event) { if (event.keyCode === 13) { event.preventDefault(); document.getElementById("abutton").click(); } });
 if (!/*@cc_on!@*/false || !!document.documentMode === true) { document.getElementById('ie').remove() }
@@ -148,24 +148,5 @@ document.getElementById('backpack').hidden = false
     @-moz-keyframes my-animation{from{-moz-transform:translateX(100%)}to{-moz-transform:translateX(-100%)}}@-webkit-keyframes my-animation{0%{-webkit-transform:translateX(100%)}100%{-webkit-transform:translateX(-100%)}}
     @keyframes my-animation{from{-moz-transform:translateX(100%);-webkit-transform:translateX(100%);transform:translateX(100%)}to{-moz-transform:translateX(-100%);-webkit-transform:translateX(-100%);transform:translateX(-100%)}}
     .spinnything { transform: rotate(360deg); transition: transform 0.5s; }
-    .spinnything:active { transform: rotate(0deg);
-  transition:  0s; }
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  padding: 12px 16px;
-  z-index: 1;
-}
-
-.dropdown:hover .dropdown-content {
-  display: inline-block;
-}
+    .spinnything:active { transform: rotate(0deg); transition:  0s; }
 </style>
