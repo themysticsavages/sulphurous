@@ -10,6 +10,7 @@ import requests
 import pathlib
 import filecmp
 import zipfile
+import shutil
 import base64
 import json
 import os
@@ -60,6 +61,10 @@ def run():
     @crossdomain(origin='*')
     def home():
         return '{}'.format(open('./html/index.html', encoding='utf-8').read())
+
+    @app.route('/500/')
+    def fivehundred():
+        abort(500)
 
     @app.route('/projects/<query>/')
     def project(query):
@@ -248,6 +253,10 @@ def run():
     @app.errorhandler(404)
     def page_not_found(e):
       return open('./html/404.html', encoding='utf-8').read()
+
+    @app.errorhandler(500)
+    def error(e):
+      return open('./html/500.html', encoding='utf-8').read()
     
     @app.route('/api/archive/')
     @crossdomain(origin='*')
@@ -314,7 +323,7 @@ def run():
     @app.get('/api/')
     @crossdomain('*')
     def api():
-          return { 'ok?':'nokidding','why':'non-cors api passthrough' } 
+          return { 'ok?':'nokidding','why':'internal functions' } 
 
     @app.get('/api/sendcomment/')
     def sendcomment():
@@ -383,7 +392,11 @@ def run():
       if args.get('user') == '' or args.get('pass') == '':
             abort(404)
       else:
-            os.mkdir('./projcache/assets')
+            try:
+              os.mkdir('./projcache/assets')
+            except FileExistsError:
+              pass
+
             userb = json.loads(get_user_backpack())
             for cnt in userb:
                   if '.zip' in cnt['body']: continue
@@ -391,6 +404,7 @@ def run():
 
                   download('https://assets.scratch.mit.edu/{}'.format(cnt['body']),'./projcache/assets/{}'.format(cnt['body']))
             zipdir()
+            shutil.rmtree('./projcache/assets')
       return send_file('./projcache/assets.zip')
             
     server = WSGIServer((host, port), app)
