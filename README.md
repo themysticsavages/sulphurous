@@ -17,7 +17,7 @@
   - [GET /archive/](#get-archive)
     - [GET /archive/docs](#get-archivedocs)
     - [GET /archive/search](#get-archivesearch)
-  - GET /api/
+  - [GET /api/](#get-api)
       - [GET /api/archive/](#get-apiarchive) 
         - [GET /api/archive/:ID:](#get-apiarchiveid)  
           - [GET /api/archive/:ID:/:PRO:](#get-apiarchiveidpro) 
@@ -28,7 +28,7 @@
 
 ![root](https://raw.githubusercontent.com/ajskateboarder/stuff/main/scratchhh.web/scratchhh.web.png)
 
-scratchhh.tk is basically [scratch.mit.edu](https://scratch.mit.edu) with more pros. This clone offers many features that are not available on Scratch.
+scratchhh.tk is basically [scratch.mit.edu](https://scratch.mit.edu) with more pros. This clone offers many features that are not available on Scratch. It's still a work in progress so some endpoints are not there YET.
 It's obviously available [here](https://scratchhh.tk). Just please note that the site may be down for maintainance or something. That's why I offer local hosting!
 
 # Installation
@@ -135,6 +135,12 @@ Search for archived projects under a directory.
 
 Parameters:
  - `q`
+
+### GET /api/
+
+*Response: JSON*
+<br>
+Gets a jokish response. It's more of a place holder rather than something useful.
 
 ### GET /api/archive/
 <br>
