@@ -33,13 +33,13 @@ It's obviously available [here](https://scratchhh.tk). Just please note that the
 
 # Installation
 ```bash
-git clone https://github.com/themysticsavages/scratchhh.tk
-cd scratchhh.tk
-python -m pip install -r requirements.txt
+$ git clone https://github.com/themysticsavages/scratchhh.tk
+$ cd scratchhh.tk
+$ python -m pip install -r requirements.txt
 ```
 ## Config
 ```bash
-nano application/config.py
+$ nano application/config.py
 ```
 ```python
 port = 2000
@@ -48,9 +48,9 @@ host = '0.0.0.0'
 ```
 ```bash
 # Run as root if you are using "restricted ports"
-python host.py
+$ python host.py
 ```
-Bam! Scratchhh.tk is now running at http://IP:PORT
+**Bam!** Scratchhh.tk is now running at http://localhost:2000 (by default)
 
 ## Endpoints
 Pretty much every endpoint with docs
