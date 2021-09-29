@@ -3,5 +3,5 @@ import datetime
 import os
 
 os.chdir('application')
-app.run()
 print('Server started!')
+app.run()
