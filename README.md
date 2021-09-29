@@ -23,15 +23,16 @@
           - [GET /api/archive/:ID:/:PRO:](#get-apiarchiveidpro) 
       - [GET /api/postcomment/](#get-apipostcomment)
       - [GET /api/checkuser/](#get-checkuser) 
+- [Private endpoints](#private-endpoints)
 
-# scratchhh.tk (wip)
+# scratchhh.xyz (wip)
 
 ![badge](https://img.shields.io/codacy/grade/a69a147a35534c83bc02a32687fa80da)
 
 ![root](https://raw.githubusercontent.com/ajskateboarder/stuff/main/scratchhh.web/scratchhh.web.png)
 
-scratchhh.tk is basically [scratch.mit.edu](https://scratch.mit.edu) with more pros. This clone offers many features that are not available on Scratch. It's still a work in progress so some endpoints are not there YET.
-It's obviously available [here](https://scratchhh.tk). Just please note that the site may be down for maintainance or something. That's why I offer local hosting!
+scratchhh.xyz is basically [scratch.mit.edu](https://scratch.mit.edu) with more pros. This clone offers many features that are not available on Scratch. It's still a work in progress so some endpoints are not there YET.
+It's obviously available [here](https://scratchhh.xyz). Just please note that the site may be down for maintainance or something. That's why I offer local hosting!
 
 # Installation
 ```bash
@@ -179,4 +180,9 @@ Parameters:
 <br>
 See if a user exists but much easier.
 
-And that's it.
+## Private endpoints
+Endpoints that are not in this repo but are available in [scratchhh.xyz](https://scratchhh.xyz). Don't worry, they don't do much.
+
+**GET /selfdestruct/:** Basically play some FNAF 2 music.
+<br>
+**GET /buglist/:** Talk about any bugs on the main site.
