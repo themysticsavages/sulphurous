@@ -1,0 +1,15 @@
+{
+  "__c": [
+    "port: port # localhost:xxxx",
+    "host: host (shouldn't be changed)",
+    "ip_bans: ban certain ips",
+    "pid_bl: blacklist project ids that break the site"
+  ]
+  "port": 2000,
+  "host": "0.0.0.0",
+  "ip_bans": [
+  ],
+  "pid_bl": [
+    "10128407"
+  ]
+}
