@@ -40,6 +40,22 @@ cd scratchhh.xyz
 python -m pip install -r requirements.txt
 ```
 
+## Config
+Modify the application with `application/config.json`
+```bash
+cat application/config.json
+{
+  "port": 2000,
+  "host": "0.0.0.0",
+  "ip_bans": [
+  ],
+  "pid_bl": [
+    "10128407"
+  ]
+}
+```
+`ip_bans` is used to ban users by public IP, and `pid_bl` is simply a blacklist for projects.
+
 ## Endpoints
 Pretty much every endpoint with docs
 
