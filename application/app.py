@@ -2,7 +2,6 @@ from scratchhh.scratchhh import Scratch
 from gevent.pywsgi import WSGIServer
 from functools import update_wrapper
 from datetime import timedelta
-from .config import host, port
 from dateutil import parser
 import scratchclient
 from flask import *
@@ -17,6 +16,19 @@ import os
 import re
 
 app = Flask(__name__)
+config = json.loads(open('./application/config.json').read())
+
+class check:
+  def checkbans(ip):
+    if ip in config['ip_bans']:
+      return True
+    else:
+      return None
+  def checkpid(q):
+    if q in config['pid_bl']:
+      return True
+    else:
+      return None
 
 def crossdomain(origin=None, methods=None, headers=None, max_age=21600, attach_to_all=True, automatic_options=True):
   if methods is not None:
@@ -57,10 +69,20 @@ def crossdomain(origin=None, methods=None, headers=None, max_age=21600, attach_t
         return update_wrapper(wrapped_function, f)
   return decorator
 
+@app.url_value_preprocessor
+def after(endpoint, r):
+  if check.checkbans(request.remote_addr) == True:
+    abort(403)
+
 @app.route('/')
 @crossdomain(origin='*')
 def home():
     return '{}'.format(open('./html/index.html', encoding='utf-8').read())
+
+@app.route('/functions.js/')
+@crossdomain(origin='*')
+def fn():
+  return open('./functions.js').read()
 
 @app.route('/500/')
 def fivehundred():
@@ -75,6 +97,7 @@ def search():
 
 @app.route('/projects/<query>/')
 def project(query):
+    if check.checkpid(query) == True: abort(500)
     if Scratch.exists(query) == True and re.match('^[0-9]*$', query):
       search = Scratch.getInfo(query)
       try:
@@ -166,7 +189,7 @@ def get(query):
                     get_prev = './projcache/{}/project{}-{}.sb3'.format(query, query, i - 1)  
                     os.remove('./projcache/{}/project{}-{}.sb3'.format(query, query, i))
         elif os.path.exists('./projcache/{}/project{}-{}'.format(query, query, i)) == False:
-              Scratch.cloneProj(query, './projcache/{}/project{}-{}.sb3'.format(query, query, i))
+              download('https://projects.scratch.mit.edu/{}'.format(query), './projcache/{}/project{}-{}.sb3'.format(query, query, i))
 
         if get_prev == False:
               return send_file('./projcache/{}/project{}-{}.sb3'.format(query, query, i))
@@ -269,8 +292,12 @@ def us():
 def page_not_found(e):
   return open('./html/404.html', encoding='utf-8').read()
 
+@app.errorhandler(403)
+def forbidden(e):
+  return open('./html/banned.html', encoding='utf-8').read().replace('.ip.', request.remote_addr)
+
 @app.errorhandler(500)
-def error(e):
+def internal_error(e):
   return open('./html/500.html', encoding='utf-8').read()
 
 @app.route('/api/archive/')
@@ -423,6 +450,5 @@ def getbackpack():
   return send_file('./projcache/assets.zip')
 
 def run():
-    server = WSGIServer((host, port), app)
+    server = WSGIServer((config['host'], config['port']), app)
     server.serve_forever()
-    
