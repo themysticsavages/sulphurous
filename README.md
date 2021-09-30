@@ -23,7 +23,6 @@
           - [GET /api/archive/:ID:/:PRO:](#get-apiarchiveidpro) 
       - [GET /api/postcomment/](#get-apipostcomment)
       - [GET /api/checkuser/](#get-checkuser) 
-- [Private endpoints](#private-endpoints)
 
 # scratchhh.xyz (wip)
 
@@ -165,10 +164,3 @@ Parameters:
 *Response: JSON*
 <br>
 See if a user exists but much easier.
-
-## Private endpoints
-Endpoints that are not in this repo but are available in [scratchhh.xyz](https://scratchhh.xyz). Don't worry, they don't do much.
-
-**GET /selfdestruct/:** Basically play some FNAF 2 music.
-<br>
-**GET /buglist/:** Talk about any bugs on the main site.
