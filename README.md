@@ -31,7 +31,7 @@ cat application/config.json
 `ip_bans` is used to ban users by public IP, and `pid_bl` is simply a blacklist for projects.
 
 ## Endpoints
-Pretty much every endpoint with docs
+Pretty much every endpoint with docs (there is a lot of them)
 
 ### GET /
 
@@ -62,6 +62,11 @@ Return all assets like images and music (not sprites though).
 *Response: send_file()*
 <br>
 Get all your assets in a convenient ZIP file.
+
+### GET /search/
+
+*Response: HTML*
+Search for Scratch projects by name.
 
 ### GET /projects/:ID:/
 
@@ -168,8 +173,28 @@ Parameters:
 
 *Response: JSON*
 <br>
-Return all posted gists and the count for convenience.
+Return all posted gists, their information, and the count for convenience.
 
 ### GET /api/gists/post
 
 *Response: redirect()*
+<br>
+Post a gist! Like how GitHub gists are (mostly) snippets of text code, Scratchhh gists are snippets of Scratch blocks.
+
+Parameters:
+  - `u` (user)
+  - `p` (pass)
+  - `c` (content)
+  - `t` (title)
+
+### GET /gists/
+
+*Response: HTML*
+<br>
+Return a barely edited copy of the index page; used to search for gists by ID.
+
+### GET /gists/:ID:
+
+*Response: HTML*
+<br>
+Return a gist and it's blocks.
