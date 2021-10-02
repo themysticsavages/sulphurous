@@ -1,29 +1,3 @@
-# Table of contents
-- [Installation](#installation)
-  - [Config](#config)
-- [Endpoints](#endpoints)
-  - [GET /](#get-)
-  - [GET /whyus](#get-whyus)
-  - [GET /login](#get-login)
-  - [GET /backpack/](#get-backpack)
-    - [GET /backpack/get](#get-backpackget) 
-  - GET /projects/
-    - [GET /projects/:ID:/](#get-projectsid)
-      - [GET /projects/:ID:/get](#get-projectsidget) 
-      - [GET /projects/:ID:/embed](#get-projectsidembed)
-      - [GET /projects/:ID:/embed-light](#get-projectsidembed-light)
-    - GET /projects/:ID:/comments
-      - [GET /projects/:ID:/comments/get](#get-projectsidcommentsget)
-  - [GET /archive/](#get-archive)
-    - [GET /archive/docs](#get-archivedocs)
-    - [GET /archive/search](#get-archivesearch)
-  - [GET /api/](#get-api)
-      - [GET /api/archive/](#get-apiarchive) 
-        - [GET /api/archive/:ID:](#get-apiarchiveid)  
-          - [GET /api/archive/:ID:/:PRO:](#get-apiarchiveidpro) 
-      - [GET /api/postcomment/](#get-apipostcomment)
-      - [GET /api/checkuser/](#get-checkuser) 
-
 # scratchhh.xyz (wip)
 
 ![badge](https://img.shields.io/codacy/grade/a69a147a35534c83bc02a32687fa80da)
@@ -180,3 +154,22 @@ Parameters:
 *Response: JSON*
 <br>
 See if a user exists but much easier.
+
+### GET /api/gists/getbyid
+
+*Response: JSON*
+<br>
+Get a gist by it's ID.
+
+Parameters:
+  - `id`
+
+### GET /api/gists/all
+
+*Response: JSON*
+<br>
+Return all posted gists and the count for convenience.
+
+### GET /api/gists/post
+
+*Response: redirect()*
