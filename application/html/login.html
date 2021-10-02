@@ -3,25 +3,56 @@
     <link rel="shortcut icon" type="image/jpg" href="https://raw.githubusercontent.com/ajskateboarder/stuff/main/more/logo.png">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <body style="background-color: #404040; color: white;" onload="check()">
+    <body style="background-color: #303030; color: white;" onload="check()">
+        <title>Login</title>
+                    <div class="topnav">
+                &nbsp;&nbsp;&nbsp;<a class="active" href="/"><img src="https://raw.githubusercontent.com/ajskateboarder/stuff/main/more/logo.png" width="25"></a>
+                <a href="https://github.com/themysticsavages/scratchhh.tk" target="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GitHub</a>
+                <a href="/whyus">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Why us?</a>
+                <div style="text-align:right; float:right; right:0">
+                  <a href="/backpack" id="backpack" hidden>Backpack</a>
+                <a href="/login" id="text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Login&nbsp;&nbsp;&nbsp;</a>
+            </div>
+            </div><br>
         <h1 style="margin: 10px;">Login</h1>
         <hr class="header">
-        <label style="margin-left: 10px;">Enter your username: </label> <input class="box" id="user" type="text"> <br>
-        <label style="margin-left: 10px;">and it's password: </label> <input class="box" id="pass" type="text" autocomplete="off"> <br>
+        <label style="margin-left: 10px;">Enter your username: </label> <input class="box dark" id="user" type="text" autocomplete="off"> <br>
+        <label style="margin-left: 10px;">and it's password: </label> <input class="box dark" id="pass" type="password" autocomplete="off"> <br>
         <button id="submit" style="margin-left: 10px;" class="dark" onclick="sendCredits()">Submit</button> <br>
-        <br><mark class="err" id="error"></mark>
+        <br><p class="err" id="error"></p>
     </body>
 </html>
 <style type="text/css">
-        .dark { color: white; background-color: #303030; border: none; outline: none; }
-        .dark:hover { color: white; background-color: #404040; }
-        .header { height:2px; color: #808080; background-color: #808080; left: 0;  }
-        .box { background-color: #303030; color: white; border: none; }
-        .err { margin-left: 10px; }
-        mark { background-color: #D22B2B; color: red; }
+        .dark { color: white; background-color: #404040; border: none; outline: none; }
+        .dark:hover { color: white; background-color: #505050; }
+        .header { height:2px; color: #808080; background-color: #808080; left: 0; width: 98.5% }
+        .box { background-color: #404040; color: white; border: none; }
+        .err { margin-left: 10px; color: #d22b2b }
+        .topnav { background-color: rgba(0, 0, 0); top: 0; opacity: 0.5; position: fixed; text-align: left;overflow: hidden; left: 0; width: 100%; display: inline-block; }
+        .topnav a { display: inline-block; color: #f2f2f2; opacity: 0.5; text-align:left; text-decoration: none; font-size: 17px; height: 30px;}
+        .topnav a:hover { background: #000; color: #FFF; opacity: 2; }
 </style>
 <script>
-    var Base64 = {
+function setCookie(e, t, n) {
+    const o = new Date;
+    o.setTime(o.getTime() + 24 * n * 60 * 60 * 1e3);
+    let i = "expires=" + o.toGMTString();
+    document.cookie = e + "=" + t + ";" + i + ";path=/"
+}
+
+function getCookie(e) {
+    let t = e + "=",
+        n = decodeURIComponent(document.cookie).split(";");
+    for (let e = 0; e < n.length; e++) {
+        let o = n[e];
+        for (;
+            " " == o.charAt(0);) o = o.substring(1);
+        if (0 == o.indexOf(t)) return o.substring(t.length, o.length)
+    }
+    return ""
+}
+
+var Base64 = {
     _keyStr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
     encode: function(e) {
         var t = "";
@@ -111,26 +142,6 @@
         return t
     }
 };
-
-function setCookie(e, t, n) {
-    const o = new Date;
-    o.setTime(o.getTime() + 24 * n * 60 * 60 * 1e3);
-    let i = "expires=" + o.toGMTString();
-    document.cookie = e + "=" + t + ";" + i + ";path=/"
-}
-
-function getCookie(e) {
-    let t = e + "=",
-        n = decodeURIComponent(document.cookie).split(";");
-    for (let e = 0; e < n.length; e++) {
-        let o = n[e];
-        for (;
-            " " == o.charAt(0);) o = o.substring(1);
-        if (0 == o.indexOf(t)) return o.substring(t.length, o.length)
-    }
-    return ""
-}
-
 function check() {
     if (getCookie('username') && getCookie('password')) window.location.href = '/'
 }
@@ -141,7 +152,12 @@ async function sendCredits() {
     if (!e || !t) { return document.getElementById('error').innerText = 'Missing values' } else { document.getElementById('error').innerText = '' }
     var status = 0
 
-    await fetch('https://devscratchhhtk.ajskateboarder.repl.co/isuser/'+e).then(res => res.text()).then(res => { if (res === 'false') { return document.getElementById('error').innerText = 'No such user.' } })
-    if (status === 0) { setCookie('username', Base64.encode(e));setCookie('password', Base64.encode(t));window.location.href = '/' }
+    await fetch('https://scratchapinc.herokuapp.com/users/'+e+'/').then(res => res.json()).then(res => {
+      if (res['message']) { document.getElementById('error').innerText = 'No such user'; return status = 1; }
+    })
+    await fetch(`https://scratchapinc.herokuapp.com/correctcredits/?user=${e}&pass=${t}`).then(res => res.json()).then(res => {
+        if (res['status'] == 'False') { document.getElementById('error').innerText = 'Incorrect password'; return status = 1; }})
+
+    if (status == 0) { setCookie('username', Base64.encode(e));setCookie('password', Base64.encode(t));window.location.href = '/' }
 }
 </script>

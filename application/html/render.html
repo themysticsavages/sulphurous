@@ -1,0 +1,87 @@
+<html>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://scratchblocks.github.io/js/scratchblocks-v3.5.2-min.js"></script>
+
+<title>//title by //author</title>
+<link rel="shortcut icon" href="https://raw.githubusercontent.com/ajskateboarder/stuff/main/more/logo.png">
+
+<body style="background-color:#303030; color:white" onload="checkCookie()">
+    <div class="content" style="height: 100%; overflow-y: auto;">
+        <div class="topnav">
+            &nbsp;&nbsp;&nbsp;<a class="active" href="/"><img src="https://raw.githubusercontent.com/ajskateboarder/stuff/main/more/logo.png" width="25"></a>
+            <a href="https://github.com/themysticsavages/scratchhh.tk" target="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GitHub</a>
+            <a href="/whyus">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Why us?</a>
+            <div style="text-align:right; float:right; right:0">
+                <a href="/gists" id="gists" hidden>Gists</a>
+                <a href="/backpack" id="backpack" hidden>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Backpack</a>
+            <a href="/login" id="text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Login&nbsp;&nbsp;&nbsp;</a>
+        </div>
+        </div><br><br>
+        <div style="margin:10px;background-color:#404040;display:inline-block; width:400px">
+        <p style="margin-left:10px;font-size:30px">
+        //title<br>
+        <sub style="color: #909090;">by //author</sub><br>
+        <br>
+        </p>
+        <p class="blocks" style="margin-left: 10px;">
+        //code
+        </p>
+        <br>
+        </div>
+        <style>
+            .topnav { background-color: rgba(0, 0, 0); top: 0; opacity: 0.5; position: fixed; text-align: left;overflow: hidden; left: 0; width: 100%; display: inline-block; }
+            .topnav a { display: inline-block; color: #f2f2f2; opacity: 0.5; text-align:left; text-decoration: none; font-size: 17px; height: 30px;}
+            .topnav a:hover { background: #000; color: #FFF; opacity: 2; }
+        </style>
+        <script type="text/javascript">
+        scratchblocks.renderMatching('p.blocks', 
+        { 
+        style:'scratch3',
+        }
+        )
+
+        let svgw = document.getElementsByTagName('svg').item(0).width.baseVal.value,
+            svgh = document.getElementsByTagName('svg').item(0).height.baseVal.value
+
+        document.getElementsByTagName('svg').item(0).width.baseVal.value = svgw / 1.5
+        document.getElementsByTagName('svg').item(0).height.baseVal.value = svgh / 1.5
+
+
+        </script>
+        <script type="text/javascript">
+        function getCookie(cname) {
+        let name = cname + "=";
+        let decodedCookie = decodeURIComponent(document.cookie);
+        let ca = decodedCookie.split(';');
+        for(let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+        }
+        function checkCookie() {
+            if (getCookie('username') && getCookie('password')) {
+            document.getElementById('text').innerHTML = `&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hey ${ decodeBase64(getCookie('username'))}!&nbsp;&nbsp;&nbsp;`
+            document.getElementById('text').href = ''
+            document.getElementById('backpack').hidden = false
+            document.getElementById('gists').hidden = false
+            }
+        }
+        decodeBase64 = function(s) {
+            var e={},i,b=0,c,x,l=0,a,r='',w=String.fromCharCode,L=s.length;
+            var A="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+            for(i=0;i<64;i++){e[A.charAt(i)]=i;}
+            for(x=0;x<L;x++){
+                c=e[s.charAt(x)];b=(b<<6)+c;l+=6;
+                while(l>=8){((a=(b>>>(l-=8))&0xff)||(x<(L-2)))&&(r+=w(a));}
+            }
+            return r;
+        };
+        </script>
+</body>
+</html>

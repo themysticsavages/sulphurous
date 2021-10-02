@@ -36,7 +36,8 @@
                 <a href="https://github.com/themysticsavages/scratchhh.tk" target="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GitHub</a>
                 <a href="/whyus">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Why us?</a>
                 <div style="text-align:right; float:right; right:0">
-                <a href="/backpack" id="backpack" hidden>Backpack</a>
+                <a href="/gists" id="gists" hidden>Gists</a>
+                <a href="/backpack" id="backpack" hidden>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Backpack</a>
                 <a href="/login" id="text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Login&nbsp;&nbsp;&nbsp;</a>
                 </div>
             </div>
@@ -126,7 +127,7 @@
         document.getElementById('comment').type = 'text'
         document.getElementById('send').type = 'submit'
 
-        fetch('https://scratchapinc.herokuapp.com/projects/.id./[').then(r => r.json()).then(r => {
+        fetch('https://scratchapinc.herokuapp.com/projects/.id./').then(r => r.json()).then(r => {
           if (r['comments_allowed'] == false) {
             document.getElementById('msg').innerText = 'Oh, comment posting is turned off for this project!'
             document.getElementById('comment').type = 'hidden'
@@ -137,6 +138,7 @@
         document.getElementById('text').innerHTML = `&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hey ${ decodeBase64(getCookie('username'))}!&nbsp;&nbsp;&nbsp;`
         document.getElementById('text').href = ''
         document.getElementById('backpack').hidden = false
+        document.getElementById('gists').hidden = false
         }
         }
 

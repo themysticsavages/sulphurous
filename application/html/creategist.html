@@ -2,24 +2,30 @@
 <html>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <title>Backpack</title>
+    <title>Create a gist</title>
 <body onload="check()">
           <div class="topnav">
             &nbsp;&nbsp;&nbsp;<a class="active" href="/"><img src="https://raw.githubusercontent.com/ajskateboarder/stuff/main/more/logo.png" width="25"></a>
             <a href="https://github.com/themysticsavages/scratchhh.tk" target="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GitHub</a>
             <a href="/whyus">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Why us?</a>
             <div style="text-align:right; float:right; right:0">
-              <a href="/backpack" id="backpack" hidden>Backpack</a>
+                <a href="/gists" id="gists" hidden>Gists</a>
+                <a href="/backpack" id="backpack" hidden>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Backpack</a>
             <a href="/login" id="logine">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Login&nbsp;&nbsp;&nbsp;</a>
             </div>
         </div><br><br>
-    <h1 style="font-size: xx-large;">Your backpack</h1>
+    <h1 style="font-size: xx-large;">Create a gist</h1>
     <hr class="header">
     <p style="margin-left: 10px;" id="login">
-        Nothing! You have to login first!
+        That's not possible without logging in!
         <a href="/login"><button class="dark round1 round2" id="login">&nbsp;Login&nbsp;</button></a>
     </p>
-    <p hidden id="text" style="margin-left: 10px;">
+    <form action="/api/gists/post/" hidden id="text" style="margin-left: 10px;" onsubmit="getsnippet()">
+        <input type="text" class="round1 round2 dark" style="width: 200px; height: 30px; font-size: 20px;" name="t" autocomplete="off" id="title"><br><br>
+        <textarea rows="2" cols="25" placeholder=" . . ." class="box" id="snippet" name="c"></textarea><br><br>
+        <button onclick="getsnippet()" class="round1 round2 dark">&nbsp;Create&nbsp;</button>
+        <input type="hidden" name="u" value="" id="u">
+        <input type="hidden" name="p" value="" id="p">
     </p>
 </body>
 <style>
@@ -30,9 +36,10 @@
     .dark:hover { color: white; background-color: #505050; }
     .round1 { border-top-left-radius: 15px; border-bottom-left-radius: 15px; border: 1px #404040 solid; }
     .round2 { border-top-right-radius: 15px; border-bottom-right-radius: 15px; }
-        .topnav { background-color: rgba(0, 0, 0); top: 0; opacity: 0.5; position: fixed; text-align: left;overflow: hidden; left: 0; width: 100%; display: inline-block; }
+    .topnav { background-color: rgba(0, 0, 0); top: 0; opacity: 0.5; position: fixed; text-align: left;overflow: hidden; left: 0; width: 100%; display: inline-block; }
     .topnav a { display: inline-block; color: #f2f2f2; opacity: 0.5; text-align:left; text-decoration: none; font-size: 17px; height: 30px;}
     .topnav a:hover { background: #000; color: #FFF; opacity: 2; }
+    .box { background-color: #404040; color: white; border: none; width: 600px; height: 400px; resize: none; }
 </style>
 <script type="text/javascript">
 decodeBase64 = function(s) {
@@ -63,6 +70,7 @@ function getCookie(e) {
     }
     return ""
 }
+
 function check() { 
     if (getCookie('username') && getCookie('password')) {
         document.getElementById('login').remove()
@@ -71,23 +79,20 @@ function check() {
         let e = getCookie('username'), 
             t = getCookie('password')
 
-        fetch(`https://scratchapinc.herokuapp.com/api/fetchbackpack/?user=${e}&pass=${t}`)
-        .then(res => res.json())
-        .then(res => {
-            let imgs = []
-            let snds = []
+        document.getElementById('logine').innerHTML = `&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hey ${decodeBase64(getCookie('username'))}!&nbsp;&nbsp;&nbsp;`
+        document.getElementById('backpack').hidden = false
+        document.getElementById('gists').hidden = false
 
-            res.forEach(cnt => {
-                if (cnt.includes('.json') || cnt.includes('.zip')) return 
-                else if (cnt.includes('.png') || cnt.includes('.jpg') || cnt.includes('.jpeg')) return imgs.push(`<img src='https://assets.scratch.mit.edu/${cnt}'><br>`)
-                else if (cnt.includes('.wav') || cnt.includes('.mp3')) return snds.push(`<audio controls><source src='https://assets.scratch.mit.edu/${cnt}' type='audio/wav'></audio><br>`)
-            })
-
-            document.getElementById('text').innerHTML = 'This contains all available ASSETS, not sprites, however.<br><br>'+imgs.join('')+'<br>'+snds.join('')+'<br>'
-            document.getElementById('logine').innerHTML = `&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hey ${decodeBase64(getCookie('username'))}!&nbsp;&nbsp;&nbsp;`
-            document.getElementById('backpack').hidden = false
-        })
+        document.getElementById('u').value = decodeBase64(e)
+        document.getElementById('p').value = decodeBase64(t)
     }
+}
+function getsnippet() {
+    let str = document.getElementById('snippet').value
+    if (document.getElementById('title').value == '') event.preventDefault(); return false
+
+    if (!str == '') { str = document.getElementById('snippet').value.replace(/\r\n|\n|\r/gm, '<br>') } else { event.preventDefault(); return false }
+    if (str.startsWith('<br>') || str.includes('<br><br>')) { event.preventDefault(); return false } else { console.log('ok') }
 }
 </script>
 </html>

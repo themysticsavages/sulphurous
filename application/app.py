@@ -1,14 +1,15 @@
+from scratchclient import ScratchSession, ScratchExceptions
 from scratchhh.scratchhh import Scratch
 from gevent.pywsgi import WSGIServer
 from functools import update_wrapper
 from datetime import timedelta
 from dateutil import parser
-import scratchclient
 from flask import *
 import requests
 import pathlib
 import filecmp
 import zipfile
+import random
 import shutil
 import base64
 import json
@@ -379,7 +380,7 @@ def sendcomment():
             cnt = args.get('content')
             pid = args.get('pid')
 
-            scratchclient.ScratchSession(user, passwd).get_project(pid).post_comment(cnt)
+            ScratchSession(user, passwd).get_project(pid).post_comment(cnt)
 
       return redirect('/projects/{}'.format(pid))
 
@@ -416,7 +417,7 @@ def getbackpack():
               user = base64.b64decode(args.get('user').encode('ascii')).decode('ascii')
               passwd = base64.b64decode(args.get('pass').encode('ascii')).decode('ascii')
 
-              sess = scratchclient.ScratchSession(user, passwd)
+              sess = ScratchSession(user, passwd)
               headers = {
                     "x-csrftoken": sess.csrf_token,
                     "X-Token": sess.token,
@@ -448,6 +449,89 @@ def getbackpack():
         zipdir()
         shutil.rmtree('./projcache/assets')
   return send_file('./projcache/assets.zip')
+
+@app.get('/api/gists/get/')
+def apigetgists():
+  args = request.args
+  fig = {'gists':[]}
+  
+  if args.get('l'):
+    limit = args.get('l')
+    gists = json.loads(open('./gists.json').read())
+
+    if int(limit) > len(gists['gists']): abort(500)
+    for i in range(int(limit)):
+      fig['gists'].append(gists['gists'][0])
+
+  res = jsonify(fig)
+  res.headers.add('Access-Control-Allow-Origin', '*')
+  return res
+
+@app.get('/api/gists/all/')
+def apiallgists():
+  gists = json.loads(open('./gists.json').read())
+
+  res = jsonify({'count':len(gists['gists']),'gists':gists['gists']})
+  res.headers.add('Access-Control-Allow-Origin', '*')
+  return res
+
+@app.get('/api/gists/post/')
+def apipostgists():
+  args = request.args
+
+  user = args.get('u')
+  passwd = args.get('p')
+  content = args.get('c')
+  title = args.get('t')
+
+  if user == None or passwd == None or content == None or title == None: abort(500)
+  try:
+        ScratchSession(user,passwd)
+  except ScratchExceptions.InvalidCredentialsException:
+        abort(500)
+  
+  gists = json.loads(open('./gists.json').read())
+  gists['gists'].append({'user':user,'content':content,'id':random.randint(1,9999999),'title':title})
+  
+  open('./gists.json', 'w').write(
+  str(gists).replace("'",'"')
+  )
+
+  return redirect('/gists/create/')
+
+@app.get('/api/gists/getbyid/')
+def apigetbyidgists():
+      id = request.args.get('id')
+      gists = json.loads(open('./gists.json').read())
+
+      for gist in gists['gists']:
+            if gist['id'] == int(id):
+                  return gist
+
+@app.get('/gists/')
+def gists():
+      return open('./html/gists.html', encoding='utf-8').read()
+
+@app.get('/gists/<id>')
+def apirendergists(id):
+      gists = json.loads(open('./gists.json').read())
+      r = None
+
+      for gist in gists['gists']:
+            try:
+                  if gist['id'] == int(id):
+                        r = gist
+            except ValueError:
+                  abort(404)
+
+      try:
+            return open('./html/render.html').read().replace('//title', r['title']).replace('//author', r['user']).replace('//code', r['content'])
+      except TypeError:
+            abort(404)
+
+@app.get('/gists/create/')
+def gistcreate():
+      return open('./html/creategist.html').read()
 
 def run():
     server = WSGIServer((config['host'], config['port']), app)
