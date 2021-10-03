@@ -4,8 +4,11 @@
 
 ![root](https://raw.githubusercontent.com/ajskateboarder/stuff/main/scratchhh.web/scratchhh.web.png)
 
-scratchhh.xyz is basically [scratch.mit.edu](https://scratch.mit.edu) with more pros. This clone offers many features that are not available on Scratch. It's still a work in progress so some endpoints are not there YET.
-It's obviously available [here](https://scratchhh.xyz). Just please note that the site may be down for maintainance or something. That's why I offer local hosting!
+# Highlights
+  - A consistent and built-in dark mode
+  - Gist creation; create small snippets of Scratch code for the world to see (i guess)
+  - Easy-to-use API for downloading projects, your backpack, and more
+  - 100% reliable and secure (won't steal your passwords!)
 
 # Installation
 ```bash
@@ -198,3 +201,6 @@ Return a barely edited copy of the index page; used to search for gists by ID.
 *Response: HTML*
 <br>
 Return a gist and it's blocks.
+
+## The End
+lol
