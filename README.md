@@ -1,4 +1,4 @@
-# scratchhh.xyz (wip)
+<h1 align='center'>scratchhh.xyz - a clone of Scratch that isn't dead</h1>
 
 ![badge](https://img.shields.io/codacy/grade/a69a147a35534c83bc02a32687fa80da)
 
