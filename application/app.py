@@ -247,43 +247,47 @@ def commentsget(query):
 
       return text
 
-@app.get('/projects/<query>/embed/')
-@crossdomain(origin='*')
-def embed(query):
-        try:
-              search = json.loads(str(Scratch.getInfo(query)).replace("'", '"'))
-        except KeyError:
-              return open('./html/404.html', encoding='utf-8').read()
-        rep = {'//views': str(search['stats']['views']), '//rem': str(search['stats']['remixes']), '//stars': str(search['stats']['favorites']), '//loves': str(search['stats']['loves']), '.id.': query, '//project-title': '{} by {}'.format(search['title'], search['author'])}
-        if not search['remix'] == 'False':
-              rep['//rmixstatus'] = 'Remix of {} by {}'.format(Scratch.getInfo(str(search['remix']))['title'], Scratch.getInfo(str(search['remix']))['author'])
-        else:
-              rep['//rmixstatus'] = ''
+@app.get('/projects/<id>/embed/')
+def embed(id):
+  if Scratch.exists(id) == True:
+    search = json.loads(requests.get('https://api.scratch.mit.edu/projects/'+id).text)
+    rep = {'//views': str(search['stats']['views']), '//rem': str(search['stats']['remixes']), '//stars': str(search['stats']['favorites']), '//loves': str(search['stats']['loves']), '.id.': id, '//project-title': '{} by {}'.format(search['title'], search['author']['username']), '//sharedate': str(search['history']['shared']).split('T')[0].replace('-', '.')}
 
-        rep = dict((re.escape(k), v) for k, v in rep.items())
-        pattern = re.compile("|".join(rep.keys()))
-        text = pattern.sub(lambda m: rep[re.escape(m.group(0))], open('./html/embed.html', encoding='utf-8').read())
+    null = None
+    if not search['remix']['root'] == null:
+        remix = json.loads(requests.get('https://api.scratch.mit.edu/projects/'+str(search['remix']['root'])).text)
+        rep['//rmixstatus'] = 'Remix of {} by {}'.format(remix['title'], remix['author']['username'])
+    else:
+        rep['//rmixstatus'] = ''
+    
+    rep = dict((re.escape(k), v) for k, v in rep.items())
+    pattern = re.compile("|".join(rep.keys()))
+    text = pattern.sub(lambda m: rep[re.escape(m.group(0))], open('./html/embed.html', encoding='utf-8').read())
 
-        return text
+    return text
+  else:
+    abort(404)
+    
+@app.get('/projects/<id>/embed-light/')
+def embedlight(id):
+  if Scratch.exists(id) == True:
+    search = json.loads(requests.get('https://api.scratch.mit.edu/projects/'+id).text)
+    rep = {'//views': str(search['stats']['views']), '//rem': str(search['stats']['remixes']), '//stars': str(search['stats']['favorites']), '//loves': str(search['stats']['loves']), '.id.': id, '//project-title': '{} by {}'.format(search['title'], search['author']['username']), '//sharedate': str(search['history']['shared']).split('T')[0].replace('-', '.')}
 
-@app.get('/projects/<query>/embed-light/')
-@crossdomain(origin='*')
-def embed_light(query):
-        try:
-              search = json.loads(str(Scratch.getInfo(query)).replace("'", '"'))
-        except KeyError:
-              return open('./html/404.html', encoding='utf-8').read()
-        rep = {'//views': str(search['stats']['views']), '//rem': str(search['stats']['remixes']), '//stars': str(search['stats']['favorites']), '//loves': str(search['stats']['loves']), '.id.': query, '//project-title': '{} by {}'.format(search['title'], search['author'])}
-        if not search['remix'] == 'False':
-              rep['//rmixstatus'] = 'Remix of {} by {}'.format(Scratch.getInfo(str(search['remix']))['title'], Scratch.getInfo(str(search['remix']))['author'])
-        else:
-              rep['//rmixstatus'] = ''
+    null = None
+    if not search['remix']['root'] == null:
+        remix = json.loads(requests.get('https://api.scratch.mit.edu/projects/'+str(search['remix']['root'])).text)
+        rep['//rmixstatus'] = 'Remix of {} by {}'.format(remix['title'], remix['author']['username'])
+    else:
+        rep['//rmixstatus'] = ''
+    
+    rep = dict((re.escape(k), v) for k, v in rep.items())
+    pattern = re.compile("|".join(rep.keys()))
+    text = pattern.sub(lambda m: rep[re.escape(m.group(0))], open('./html/embed-light.html', encoding='utf-8').read())
 
-        rep = dict((re.escape(k), v) for k, v in rep.items())
-        pattern = re.compile("|".join(rep.keys()))
-        text = pattern.sub(lambda m: rep[re.escape(m.group(0))], open('./html/embed-light.html', encoding='utf-8').read())
-
-        return text
+    return text
+  else:
+    abort(404)
 
 @app.route('/whyus/')
 def us():
@@ -512,7 +516,7 @@ def apigetbyidgists():
 def gists():
       return open('./html/gists.html', encoding='utf-8').read()
 
-@app.get('/gists/<id>')
+@app.get('/gists/<id>/')
 def apirendergists(id):
       gists = json.loads(open('./gists.json').read())
       r = None
