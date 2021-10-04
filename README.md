@@ -9,6 +9,9 @@
   - Gist creation; create small snippets of Scratch code for the world to see (i guess)
   - Easy-to-use API for downloading projects, your backpack, and more
   - 100% reliable and secure (won't steal your passwords!)
+  - Project information embeds
+  - Social media previews (tested and works on Discord)
+  - Mobile friendly~~?~~
 
 # Installation
 ```bash
