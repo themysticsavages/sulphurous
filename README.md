@@ -11,7 +11,7 @@
   - 100% reliable and secure (won't steal your passwords!)
   - Project information embeds
   - Social media previews (tested and works on Discord)
-  - Mobile friendly~~?~~
+  - Mobile friendly ~~?~~
 
 # Installation
 ```bash
