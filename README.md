@@ -45,6 +45,12 @@ Pretty much every endpoint with docs (there is a lot of them)
 <br>
 The root landing page. Shows a bit of information.
 
+### GET /500
+
+*Response: HTML*
+<br>
+Returns a Internal Server "Error"
+
 ### GET /whyus/
 
 *Response: HTML*
@@ -72,6 +78,7 @@ Get all your assets in a convenient ZIP file.
 ### GET /search/
 
 *Response: HTML*
+<br>
 Search for Scratch projects by name.
 
 ### GET /projects/:ID:/
