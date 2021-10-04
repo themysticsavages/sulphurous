@@ -212,5 +212,11 @@ Return a barely edited copy of the index page; used to search for gists by ID.
 <br>
 Return a gist and it's blocks.
 
-## The End
-lol
+## Private endpoints
+These endpoints are in the main website, but not in this repo.
+
+### /bestsiteontheinternet
+Something :|
+
+### /mobile
+A somewhat mobile-friendly index page
