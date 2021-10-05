@@ -4,15 +4,14 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <title>Backpack</title>
 <body onload="check()">
-          <div class="topnav">
-            &nbsp;&nbsp;&nbsp;<a class="active" href="/"><img src="https://raw.githubusercontent.com/ajskateboarder/stuff/main/more/logo.png" width="25"></a>
-            <a href="https://github.com/themysticsavages/scratchhh.tk" target="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GitHub</a>
-            <a href="/whyus">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Why us?</a>
-            <div style="text-align:right; float:right; right:0">
-              <a href="/backpack" id="backpack" hidden>Backpack</a>
-            <a href="/login" id="logine">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Login&nbsp;&nbsp;&nbsp;</a>
+            <div class="topnav">
+                &nbsp;&nbsp;&nbsp;<a class="active" href="/"><img src="https://raw.githubusercontent.com/ajskateboarder/stuff/main/more/logo.png" width="25">&nbsp;&nbsp;&nbsp;Home</a>
+                <div style="text-align:right; float:right; right:0">
+                  <a href="/gists" id="gists" hidden style="color: white">Gists</a>
+                  <a href="/backpack" id="backpack" hidden>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Backpack</a>
+                <a href="/login" id="logine">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Login&nbsp;&nbsp;&nbsp;</a>
             </div>
-        </div><br><br>
+            </div><br><br>
     <h1 style="font-size: xx-large;">Your backpack</h1>
     <hr class="header">
     <p style="margin-left: 10px;" id="login">
@@ -33,6 +32,8 @@
         .topnav { background-color: rgba(0, 0, 0); top: 0; opacity: 0.5; position: fixed; text-align: left;overflow: hidden; left: 0; width: 100%; display: inline-block; }
     .topnav a { display: inline-block; color: #f2f2f2; opacity: 0.5; text-align:left; text-decoration: none; font-size: 17px; height: 30px;}
     .topnav a:hover { background: #000; color: #FFF; opacity: 2; }
+    a { color: white }
+    a:hover { color: grey }
 </style>
 <script type="text/javascript">
 decodeBase64 = function(s) {
@@ -83,7 +84,12 @@ function check() {
                 else if (cnt.includes('.wav') || cnt.includes('.mp3')) return snds.push(`<audio controls><source src='https://assets.scratch.mit.edu/${cnt}' type='audio/wav'></audio><br>`)
             })
 
-            document.getElementById('text').innerHTML = 'This contains all available ASSETS, not sprites, however.<br><br>'+imgs.join('')+'<br>'+snds.join('')+'<br>'
+            document.getElementById('text').innerHTML = `
+              Your backpack is filtered to only include <b>assets</b>, such as sounds and costumes. <br> <br>
+              ${imgs.join('')} <br> ${snds.join('')} <br>
+              <hr class="header">
+              <a href="get?user=${e}&pass=${t}">Download as ZIP</a>
+            `
             document.getElementById('logine').innerHTML = `&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hey ${decodeBase64(getCookie('username'))}!&nbsp;&nbsp;&nbsp;`
             document.getElementById('backpack').hidden = false
         })

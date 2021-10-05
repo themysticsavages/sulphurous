@@ -32,20 +32,17 @@
             <br>
             <br>
 
-            <img class="image spinnything" src="https://raw.githubusercontent.com/ajskateboarder/stuff/main/more/logo.png" width="75">
-            <h1 class="center">scratchhh.xyz</h1>
-            <h3  class="center" style="font-size: small;">.coolstring.</p>
+            <img class="image spinnything" src="https://raw.githubusercontent.com/ajskateboarder/stuff/main/more/logo.png" style="width:15vw;height:auto">
+            <h1 class="center" style="font-size: 4vw">scratchhh.xyz</h1>
+            <h3  class="center" style="font-size: 2vw;">the mobile page</p>
     
             <br>
     
-            <h3 class="center" style="font-size: medium;">Enter some project name... (like slither.io!)</h3>
-            <div style="text-align: center;"> <input type="search" id="query" class="round1 dark" autocomplete="off"> <button type="submit" onclick="getreturn()" class="round2 dark" id="abutton">&nbsp;Search&nbsp;</button> </div>
+            <h3 class="center" style="font-size: 2.2vw;">Enter some project name... (like Paper Minecraft!)</h3>
+            <div style="text-align: center;"> <input type="search" id="query" class="round1 dark" autocomplete="off" style="width:44vw;height:5.5vw;font-size:2.2vw"> <button type="submit" onclick="getreturn()" class="round2 dark" id="abutton" style="width:22vw;height:5.5vw;font-size:2.2vw">&nbsp;Search&nbsp;</button> </div>
     
             <br>
-            <h1 style="text-align: center; font-size: large;">Featured projects</h1>
-            
-            <hr class="header">
-            
+            <h1 style="text-align: center; font-size: 2.2vw;">Featured projects</h1><hr class="header">
             <div id="scroll-container">
                 <div id="scroll-text">
                     <a id='l1' title=""></a>
@@ -69,13 +66,6 @@
                     <a id='l15' title=""></a>
                 </div>
             </div>
-        </div>
-        <div style="text-align: center; color: white">
-              <br><br><br><br><br> Made by themysticsavages
-              <p>
-                <a href="/whyus">Why us?</a> •
-                <a href="/.git">GitHub</a>
-              </p>
         </div>
     </body>
     <!--
@@ -122,7 +112,7 @@ window.onload = function() {
 setTimeout((function() { fetch('https://scratchapinc.herokuapp.com/featured/').then(res => res.json()).then(res => {
     let projects = res['community_featured_projects']
     var i = 1
-    projects.forEach(project => { document.getElementById(`l${i}`).innerText = project['title'];document.getElementById(`l${i}`).href = 'https://scratchhh.xyz/projects/'+project['id'] ;i ++ })
+    projects.forEach(project => { document.getElementById(`l${i}`).innerHTML = `&nbsp;&nbsp;&nbsp;${project['title']}&nbsp;&nbsp;&nbsp;`;document.getElementById(`l${i}`).href = 'https://scratchhh.xyz/projects/'+project['id'] ;i ++ })
 })}), 500)
 if (getCookie('username') != '') {
 document.getElementById('text').innerHTML = `&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hey ${decodeBase64(getCookie('username'))}!&nbsp;&nbsp;&nbsp;`
@@ -135,7 +125,6 @@ document.getElementById('gists').hidden = false
 
 <style type="text/css"> 
     .round1 { border-top-left-radius: 15px; border-bottom-left-radius: 15px; border: 1px #404040 solid; }
-    .active { opacity: none }
     .bottomtext { background: rgba(0, 0, 0, 0.06); color: white; left: 0; width: 100%; padding: 15px; text-decoration: none; position: absolute; height:5% }
     .round2 { border-top-right-radius: 15px; border-bottom-right-radius: 15px; }
     .center { color: white; text-align: center; }
@@ -146,12 +135,12 @@ document.getElementById('gists').hidden = false
     #Video { position: absolute; opacity: 0.06; min-width: 100%; min-height: 100%; left: 0; right: 0;}
     .content { position: fixed; background: rgba(0, 0, 0, 0.06); color: #f1f1f1; width: 100%; padding: 20px; }
     .topnav { background-color: rgba(0, 0, 0); top: 0; opacity: 0.5; position: fixed; text-align: left;overflow: hidden; left: 0; width: 100%; display: inline-block; }
-    .topnav a { display: inline-block; color: #f2f2f2; opacity: 0.5; text-align:left; text-decoration: none; font-size: 17px; height: 30px;}
+    .topnav a { display: inline-block; color: #f2f2f2; opacity: 0.5; text-align:left; text-decoration: none; font-size: 17px; height: 4.5vw;}
     .topnav a:hover { background: #000; color: #FFF; opacity: 2; }
     alert { background-color: rgb(253, 218, 13); color: black; display: inline-block; width: 100%; text-align: center; position: fixed; right: 0; text-decoration: none; }
     alert:hover { background-color: rgb(293, 258, 53);  }
-    a { color: white }
-    a:hover { color: grey }
+    a { color: white; font-size: 2.2vw;  }
+    a:hover { color: grey; text-decoration: none }
     #scroll-container{overflow:hidden}
     #scroll-text{-moz-transform:translateX(100%);-webkit-transform:translateX(100%);transform:translateX(100%);-moz-animation:my-animation 25s linear infinite;-webkit-animation:my-animation 42s linear infinite;animation:my-animation 25s linear infinite}
     #scroll-text0{-moz-transform:translateX(100%);-webkit-transform:translateX(100%);transform:translateX(100%);-moz-animation:my-animation 39s linear infinite;-webkit-animation:my-animation 43s linear infinite;animation:my-animation 39s linear infinite}
