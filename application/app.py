@@ -75,28 +75,32 @@ def after(endpoint, r):
   if check.checkbans(request.remote_addr) == True:
     abort(403)
 
-@app.route('/')
+@app.get('/')
 @crossdomain(origin='*')
 def home():
-    return '{}'.format(open('./html/index.html', encoding='utf-8').read())
+    return open('./html/index.html', encoding='utf-8').read().replace('.coolstring.', random.choice(['has a few easter eggs', 'kinda mobile friendly', 'not dead!', 'with gist creation', 'bottom text', '^ click the logo! ^', '<a href="https://youtu.be/dQw4w9WgXcQ">you found waldo</a>']))
 
-@app.route('/functions.js/')
+@app.get('/mobile/')
 @crossdomain(origin='*')
-def fn():
-  return open('./functions.js').read()
+def MoBiLe():
+    return open('./html/mobile.html', encoding='utf-8').read()
 
-@app.route('/500/')
+@app.get('/.git/')
+def git():
+    return redirect('https://github.com/themysticsavages/scratchhh.xyz')
+
+@app.get('/500/')
 def fivehundred():
     abort(500)
 
-@app.route('/search/')
+@app.get('/search/')
 def search():
     args = request.args
     if not args.get('q'): return 'Search for something!!'
 
     return open('./html/search.html', encoding='utf-8').read().replace('.s.', args.get('q'))
 
-@app.route('/projects/<query>/')
+@app.get('/projects/<query>/')
 def project(query):
     if check.checkpid(query) == True: abort(500)
     if Scratch.exists(query) == True and re.match('^[0-9]*$', query):
@@ -108,6 +112,7 @@ def project(query):
       print(comments)
 
       rep = {'//views': str(search['stats']['views']), '//rem': str(search['stats']['remixes']), '//stars': str(search['stats']['favorites']), '//loves': str(search['stats']['loves']), '.id.': query, '//project-title': '{} by {}'.format(search['title'], search['author']), '//sharedate': str(search['share']).split('T')[0].replace('-', '.')}
+
       if not search['remix'] == 'False':
         rep['//rmixstatus'] = 'Remix of {} by {}'.format(Scratch.getInfo(str(search['remix']))['title'], Scratch.getInfo(str(search['remix']))['author'])
       else:
@@ -289,7 +294,7 @@ def embedlight(id):
   else:
     abort(404)
 
-@app.route('/whyus/')
+@app.get('/whyus/')
 def us():
   return open('./html/whyus.html', encoding='utf-8').read()
 
@@ -305,7 +310,7 @@ def forbidden(e):
 def internal_error(e):
   return open('./html/500.html', encoding='utf-8').read()
 
-@app.route('/api/archive/')
+@app.get('/api/archive/')
 @crossdomain(origin='*')
 def archiveapi():
   arc = { 'dirs': [] }
@@ -313,11 +318,11 @@ def archiveapi():
         arc['dirs'].append(dir)
   return arc
 
-@app.route('/archive/docs/')
+@app.get('/archive/docs/')
 def archive_home():
       return open('./html/archivehelp.html', encoding='utf-8').read()
 
-@app.route('/api/archive/<query>/')
+@app.get('/api/archive/<query>/')
 @crossdomain(origin='*')
 def archive_dir(query):
   if os.path.isdir('./projcache/{}'.format(query)) == True:
@@ -330,7 +335,7 @@ def archive_dir(query):
   else:
         abort(404)
 
-@app.route('/api/archive/<query>/<file>/')
+@app.get('/api/archive/<query>/<file>/')
 @crossdomain(origin='*')
 def archive_file(query, file):
   if os.path.isdir('./projcache/{}'.format(query)) == True and pathlib.Path('./projcache/{}/{}'.format(query, file)).exists() == True:
@@ -340,11 +345,11 @@ def archive_file(query, file):
   else:
         abort(404)
 
-@app.route('/archive/')
+@app.get('/archive/')
 def archive():
       return open('./html/archive.html').read()
 
-@app.route('/archive/search/')
+@app.get('/archive/search/')
 def archive_search():
       args = request.args
       if args.get('q') == '':
