@@ -80,11 +80,6 @@ def after(endpoint, r):
 def home():
     return open('./html/index.html', encoding='utf-8').read().replace('.coolstring.', random.choice(['has a few easter eggs', 'kinda mobile friendly', 'not dead!', 'with gist creation', 'bottom text', '^ click the logo! ^', '<a href="https://youtu.be/dQw4w9WgXcQ">you found waldo</a>']))
 
-@app.get('/mobile/')
-@crossdomain(origin='*')
-def MoBiLe():
-    return open('./html/mobile.html', encoding='utf-8').read()
-
 @app.get('/.git/')
 def git():
     return redirect('https://github.com/themysticsavages/scratchhh.xyz')
