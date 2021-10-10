@@ -5,6 +5,7 @@ from functools import update_wrapper
 from datetime import timedelta
 from dateutil import parser
 from flask import *
+import generator3
 import requests
 import pathlib
 import filecmp
@@ -18,6 +19,14 @@ import re
 
 app = Flask(__name__)
 config = json.loads(open('./application/config.json').read())
+
+
+def zipdir():
+      with zipfile.ZipFile('./projcache/assets.zip', 'w') as zipObj:
+            for folderName, subfolders, filenames in os.walk('./projcache/assets'):
+                  for filename in filenames:
+                        filePath = os.path.join(folderName, filename)
+                        zipObj.write(filePath, os.path.basename(filePath))
 
 class check:
   def checkbans(ip):
@@ -74,6 +83,8 @@ def crossdomain(origin=None, methods=None, headers=None, max_age=21600, attach_t
 def after(endpoint, r):
   if check.checkbans(request.remote_addr) == True:
     abort(403)
+  try: os.remove('./projcache/assets.zip')
+  except FileNotFoundError: pass
 
 @app.get('/')
 @crossdomain(origin='*')
@@ -200,6 +211,17 @@ def get(query):
     except Exception as e:
         print(e)
         return open('./html/500.html', encoding='utf-8').read()
+
+@app.get('/projects/<query>/sprites/get/')
+def spritesget(query):
+      try: os.mkdir('./projcache/assets') 
+      except FileExistsError: pass
+
+      generator3.Generator(query).toBlocks('./projcache/assets/')
+      os.remove('./projcache/assets/results.txt')
+      
+      zipdir()
+      return send_file('./projcache/assets.zip')
 
 @app.get('/projects/<query>/comments/get/')
 @crossdomain(origin='*')
@@ -409,13 +431,6 @@ def getbackpack():
             for chunk in r.iter_content(1024):
                 f.write(chunk)
         f.close()
-
-  def zipdir():
-        with zipfile.ZipFile('./projcache/assets.zip', 'w') as zipObj:
-              for folderName, subfolders, filenames in os.walk('./projcache/assets'):
-                    for filename in filenames:
-                          filePath = os.path.join(folderName, filename)
-                          zipObj.write(filePath, os.path.basename(filePath))
 
   def get_user_backpack():
               user = base64.b64decode(args.get('user').encode('ascii')).decode('ascii')
