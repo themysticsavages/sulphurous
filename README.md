@@ -4,6 +4,8 @@
 
 ![root](https://raw.githubusercontent.com/ajskateboarder/stuff/main/scratchhh.web/scratchhh.web.png)
 
+scratchhh.xyz is a clone of MIT's Scratch website built with Python, the Flask framework, and plain old HTML and JavaScript. No complicated react.js stuff here!
+
 # Highlights
   - A consistent and built-in dark mode
   - Gist creation: create small snippets of Scratch code for the world to see (i guess)
