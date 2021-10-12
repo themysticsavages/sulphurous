@@ -222,4 +222,6 @@ Return a barely edited copy of the index page; used to search for gists by ID.
 <br>
 Return a gist and it's blocks.
 
-=====
+- - - -
+
+That's the end! Any questions at all? Contact me on my Scratch [profile](https://scratch.mit.edu/users/ajskateboarder).
