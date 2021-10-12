@@ -217,8 +217,15 @@ def spritesget(query):
       try: os.mkdir('./projcache/assets') 
       except FileExistsError: pass
 
-      generator3.Generator(query).toBlocks('./projcache/assets/')
-      os.remove('./projcache/assets/results.txt')
+      try:
+        generator3.Generator(query).toBlocks('./projcache/assets/')
+        os.remove('./projcache/assets/results.txt')
+      except KeyError:
+        return 'The scripts for this project failed to download. Be grateful however, for this feature is experimental.'
+      except TypeError: 
+        return 'The scripts for this project failed to download. Be grateful however, for this feature is experimental.'
+      except UnboundLocalError:
+        return 'The scripts for this project failed to download. Be grateful however, for this feature is experimental.'
       
       zipdir()
       return send_file('./projcache/assets.zip')

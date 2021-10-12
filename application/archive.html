@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+    <link rel="shortcut icon" type="image/jpg" href="https://raw.githubusercontent.com/ajskateboarder/stuff/main/more/logo.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  
+    <style>
+          .topnav { background-color: rgba(0, 0, 0); top: 0; opacity: 0.5; position: fixed; text-align: center; overflow: hidden; left: 0; width: 100%; display: inline-block; }
+          .topnav a { display: inline-block; color: #f2f2f2; opacity: 0.5; text-align: center; text-decoration: none; font-size: 17px; height: 30px;}
+          .topnav a:hover { background: #000; color: #FFF; opacity: 2; }
+          h1 { color: white; margin-left: 10px; }
+          cnt { color: white; margin: 10px; }
+          .dark:hover { color: white; background-color: #606060; }
+          .dark { color: white; background-color: #404040; border:none; }
+          hr { width: 98.5%; border: 1px solid #808080; }
+          code { margin-left: 10px; background-color: #222; border: 1px solid #999; display: block; color: skyblue; padding: 10px; width: 40% }
+    </style>
+    <title>The Archive</title>
+    <body style="background-color: #202020;">
+        <br>
+        <h1>Welcome to the project archive!</h1>
+        <h1 class="center" style="font-size: medium;">Search for archived projects here.</h3>
+        <div style="margin-left: 10px;"> <input type="search" id="query" class="round1 dark" autocomplete="off"> <button type="submit" onclick= "
+            window.location.href = `/archive/search?q=${document.getElementById('query').value}`      
+        " class="round2 dark">&nbsp;Search&nbsp;</button> </div>
+    </body>
+</html>
