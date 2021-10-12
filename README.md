@@ -10,6 +10,7 @@ scratchhh.xyz is a clone of MIT's Scratch website built with Python, the Flask f
   - A consistent and built-in dark mode
   - Gist creation: create small snippets of Scratch code for the world to see (i guess)
   - Easy-to-use API for downloading projects, your backpack, and more
+  - Export your project scripts as scratchblocks (EXPERIMENTAL)
   - The archive: store old Scratch projects for the future in case they change
   - 100% reliable and secure (won't steal your passwords!)
   - Project information embeds
@@ -101,6 +102,12 @@ Return Scratch project as sb3. Can be used with Scratch Desktop.
 *Response: Raw HTML*
 <br>
 Return top 3 comments for a Scratch project.
+
+### GET /projects/:ID:/sprites/get/
+
+*Response: send_file()*
+<br>
+Return all sprite blocks in a ZIP file.
 
 ### GET /projects/:ID:/embed/
 
