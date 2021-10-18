@@ -177,6 +177,11 @@ Parameters:
  - `pass` (send as base64)
  - `content`
 
+Example:
+```bash
+curl "/api/postcomment?pid=108566337&user=VVNFUg==&pass=UEFTU1dPUkQ=&content=This&20is%20%a%20cool%20project" >> out
+```
+
 ### GET /api/checkuser/
 
 *Response: JSON*
