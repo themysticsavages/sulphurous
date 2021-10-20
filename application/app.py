@@ -117,7 +117,7 @@ def project(query):
         comments = None
       print(comments)
 
-      rep = {'//views': str(search['stats']['views']), '//rem': str(search['stats']['remixes']), '//stars': str(search['stats']['favorites']), '//loves': str(search['stats']['loves']), '.id.': query, '//project-title': '{} by {}'.format(search['title'], search['author']), '//sharedate': str(search['share']).split('T')[0].replace('-', '.')}
+      rep = {'//views': str(search['stats']['views']), '//rem': str(search['stats']['remixes']), '//stars': str(search['stats']['favorites']), '//loves': str(search['stats']['loves']), '.id.': query, '//project-title': '{} by <a href="/users/{}">{}</a>'.format(search['title'], search['author'], search['author']), '//sharedate': str(search['share']).split('T')[0].replace('-', '.'), '//project': '{} by {}'.format(search['title'], search['author'])}
 
       if not search['remix'] == 'False':
         rep['//rmixstatus'] = 'Remix of {} by {}'.format(Scratch.getInfo(str(search['remix']))['title'], Scratch.getInfo(str(search['remix']))['author'])
@@ -215,11 +215,10 @@ def get(query):
 @app.get('/projects/<query>/sprites/get/')
 def spritesget(query):
       try: os.mkdir('./projcache/assets') 
-      except FileExistsError: pass
+      except FileExistsError: shutil.rmtree('./projcache/assets'); os.mkdir('./projcache/assets')
 
       try:
-        generator3.Generator(query).toBlocks('./projcache/assets/')
-        os.remove('./projcache/assets/results.txt')
+        generator3.Generator(query).toBlocks('projcache/assets/')
       except KeyError:
         return 'The scripts for this project failed to download. Be grateful however, for this feature is experimental.'
       except TypeError: 
@@ -228,11 +227,12 @@ def spritesget(query):
         return 'The scripts for this project failed to download. Be grateful however, for this feature is experimental.'
       
       zipdir()
+      shutil.rmtree('./projcache/assets/')
       return send_file('./projcache/assets.zip')
 
 @app.get('/projects/<query>/comments/get/')
 @crossdomain(origin='*')
-def commentsget(query):
+def commentsget(query): 
       try:
         comments = Scratch.getProjComments(query, 3)
       except IndexError:
@@ -318,9 +318,21 @@ def embedlight(id):
   else:
     abort(404)
 
-@app.get('/whyus/')
+@app.get('/users/<user>')
+def user(user):
+  if Scratch.exists(user):
+    search = json.loads(requests.get('https://api.scratch.mit.edu/users/{}'.format(user)).text)
+    rep = {'//user': user, '//country': search['profile']['country'], '.id.': str(search['id']), '//work': search['profile']['status'].replace('\n','<br>'), '//stat': search['profile']['bio'].replace('\n', '<br>')}
+
+    rep = dict((re.escape(k), v) for k, v in rep.items())
+    pattern = re.compile("|".join(rep.keys()))
+    text = pattern.sub(lambda m: rep[re.escape(m.group(0))], open('./html/getuser.html', encoding='utf-8').read())
+
+    return text
+
+@app.get('/about/')
 def us():
-  return open('./html/whyus.html', encoding='utf-8').read()
+  return open('./html/about.html', encoding='utf-8').read()
 
 @app.errorhandler(404)
 def page_not_found(e):
@@ -333,6 +345,10 @@ def forbidden(e):
 @app.errorhandler(500)
 def internal_error(e):
   return open('./html/500.html', encoding='utf-8').read()
+
+@app.get('/api/uploads')
+def uploads():
+  return 'here'
 
 @app.get('/api/archive/')
 @crossdomain(origin='*')
@@ -415,7 +431,7 @@ def sendcomment():
 
             ScratchSession(user, passwd).get_project(pid).post_comment(cnt)
 
-      return redirect('/projects/{}'.format(pid))
+      return redirect('/projects/{}?commented'.format(pid))
 
 @app.get('/api/checkuser/')
 @crossdomain('*')
