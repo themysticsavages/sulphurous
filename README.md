@@ -1,10 +1,10 @@
-<h1 align='center'>scratchhh.xyz - a clone of Scratch that isn't dead</h1>
+<h1 align='center'>sulphurous.cf - a clone of Scratch that isn't dead</h1>
 
 ![badge](https://img.shields.io/codacy/grade/a69a147a35534c83bc02a32687fa80da)
 
 ![root](https://raw.githubusercontent.com/ajskateboarder/stuff/main/scratchhh.web/scratchhh.web.png)
 
-scratchhh.xyz is a clone of MIT's Scratch website built with Python, the Flask framework, and plain old HTML and JavaScript. No complicated react.js stuff here!
+sulphurous.cf is a clone of MIT's Scratch website built with Python, the Flask framework, and plain old HTML and JavaScript. No complicated react.js stuff here!
 
 # Highlights
   - A consistent and built-in dark mode
