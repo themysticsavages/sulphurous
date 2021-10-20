@@ -10,7 +10,7 @@
     <meta property="og:image:width" content="200">
     <meta property="og:image:height" content="200">
     
-    <title>Scratchhh Gists</title>
+    <title>Gists</title>
     <body style="background-color: #282828; overflow: hidden;">
         <img src="https://raw.githubusercontent.com/ajskateboarder/stuff/main/more/collision.gif" id="Video" >
         <div class="content" style="height: 100%; overflow-y: auto;">
@@ -22,11 +22,10 @@
                 <a href="/login" id="text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Login&nbsp;&nbsp;&nbsp;</a>
             </div>
             </div>
-            <div id='ie'><br><alert style="font-size: medium;"><a href="https://browsehappy.com/">Hmmm... this site doesn't support your browser very well!</a></alert></div>
             <br>
             <br>
 
-            <h1 class="center">Scratchhh Gists</h1>
+            <h1 class="center">Gists</h1>
             <h3  class="center" style="font-size: small;">Basically GitHub gists but blocks. (work in progress!)</p>
     
             <br>
@@ -42,7 +41,6 @@
 function getreturn() { var inputVal = document.getElementById("query").value; window.location.href = `/gists/${inputVal}` } 
 var input = document.getElementById("query");
 input.addEventListener("keyup", function(event) { if (event.keyCode === 13) { event.preventDefault(); document.getElementById("abutton").click(); } });
-if (!/*@cc_on!@*/false || !!document.documentMode === true) { document.getElementById('ie').remove() }
 function gotothis() { window.location.href = '/gists/create' }
 </script>
 

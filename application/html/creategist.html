@@ -19,7 +19,7 @@
         That's not possible without logging in!
         <a href="/login"><button class="dark round1 round2" id="login">&nbsp;Login&nbsp;</button></a>
     </p>
-    <form action="/api/gists/post/" hidden id="text" style="margin-left: 10px;" onsubmit="getsnippet()">
+    <form action="/api/gists/post/" hidden id="gistarea" style="margin-left: 10px;" onsubmit="getsnippet()">
         <input type="text" class="round1 round2 dark" style="width: 200px; height: 30px; font-size: 20px;" name="t" autocomplete="off" id="title" placeholder=" gist title . . ."><br><br>
         <textarea rows="2" cols="25" placeholder=" content . . ." class="box" id="snippet" name="c"></textarea><br><br>
         <button onclick="getsnippet()" class="round1 round2 dark">&nbsp;Create!&nbsp;</button><br><br>
@@ -76,12 +76,12 @@ function getCookie(e) {
 function check() { 
     if (getCookie('username') && getCookie('password')) {
         document.getElementById('login').remove()
-        document.getElementById('text').hidden = false
+        document.getElementById('gistarea').hidden = false
 
         let e = getCookie('username'), 
             t = getCookie('password')
 
-        document.getElementById('logine').innerHTML = `&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hey ${decodeBase64(getCookie('username'))}!&nbsp;&nbsp;&nbsp;`
+        document.getElementById('text').innerHTML = `&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hey ${decodeBase64(getCookie('username'))}!&nbsp;&nbsp;&nbsp;`
         document.getElementById('backpack').hidden = false
         document.getElementById('gists').hidden = false
 

@@ -3,6 +3,7 @@
     <link rel="shortcut icon" type="image/jpg" href="https://raw.githubusercontent.com/ajskateboarder/stuff/main/more/logo.png">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://cdn.rawgit.com/adriancooney/console.image/c9e6d4fd/console.image.min.js"></script>
     <body style="background-color: #303030; color: white;" onload="check()">
         <title>Login</title>
                     <div class="topnav">
@@ -14,12 +15,16 @@
                 <a href="/login" id="text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Login&nbsp;&nbsp;&nbsp;</a>
             </div>
             </div><br>
-        <h1 style="margin: 10px;">Login</h1>
+        <div align='center'>
+        <br>
+        <h1 style="margin: 10px;">Welcome!</h1>
         <hr class="header">
+        We store your logins as cookies on YOUR browser, not with us.<br><br>
         <label style="margin-left: 10px;">Enter your username: </label> <input class="box dark" id="user" type="text" autocomplete="off"> <br>
         <label style="margin-left: 10px;">and it's password: </label> <input class="box dark" id="pass" type="password" autocomplete="off"> <br>
-        <button id="submit" style="margin-left: 10px;" class="dark" onclick="sendCredits()">Submit</button> <br>
+        <button id="submit" style="margin-left: 10px;" class="dark" onclick="sendCredits()">&nbsp;Login&nbsp;</button> <br>
         <br><p class="err" id="error"></p>
+        </div>
     </body>
 </html>
 <style type="text/css">
@@ -159,5 +164,8 @@ async function sendCredits() {
         if (res['status'] == 'False') { document.getElementById('error').innerText = 'Incorrect password'; return status = 1; }})
 
     if (status == 0) { setCookie('username', Base64.encode(e));setCookie('password', Base64.encode(t));window.location.href = '/' }
+}
+window.onload = async function() {
+  console.image('https://static.wikia.nocookie.net/musicmania/images/9/96/CF61BEEE-66D0-4E77-A6D8-2DE75A6E2DBB.jpeg')
 }
 </script>

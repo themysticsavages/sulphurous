@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <link rel="shortcut icon" type="image/jpg" href="https://raw.githubusercontent.com/ajskateboarder/stuff/main/more/logo.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <style>
+    .topnav { background-color: rgba(0, 0, 0); top: 0; opacity: 0.5; position: fixed; text-align: left;overflow: hidden; left: 0; width: 100%; display: inline-block; }
+    .topnav a { display: inline-block; color: #f2f2f2; opacity: 0.5; text-align:left; text-decoration: none; font-size: 17px; height: 30px;}
+    .topnav a:hover { background: #000; color: #FFF; opacity: 2; }
+        h1 { color: white; margin-left: 10px; }
+        cnt { color: white; margin: 10px; }
+        hr { width: 98.5%; border: 1px solid #808080; }
+    </style>
+
+    <title>Why choose us?</title>
+    <body style="background-color: #303030;">
+            <div class="topnav">
+                &nbsp;&nbsp;&nbsp;<a class="active" href="/"><img src="https://raw.githubusercontent.com/ajskateboarder/stuff/main/more/logo.png" width="25"></a>
+                <a href="https://github.com/themysticsavages/scratchhh.tk" target="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GitHub</a>
+                <a href="/whyus">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Why us?</a>
+                <div style="text-align:right; float:right; right:0">
+                <a href="/login" id="text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Login&nbsp;&nbsp;&nbsp;</a>
+                </div>
+            </div>
+        <br><br>
+
+        <h1 align='center'>About</h1> <hr>
+        <cnt>
+            scratchhh.xyz is a improved clone of <a href="https://scratch.mit.edu">scratch.mit.edu</a>. It contains features one may find useful and are not available on Scratch. Also, it has a unique design so it doesn't look like another ModShare clone.<br><br> &nbsp;&nbsp;&nbsp;scratchhh.xyz is made with the python3 "Flask" framework. In addition, it partially uses the <a href="https://pypi.org/project/scratchhh">scratchhh</a> library for presenting information and the <a href="https://pypi.org/project/generator3">generator3</a> library to export blocks in Scratch 3 sprites to scratchblocks for download. That's just server stuff. Since project thumbnails take millions of years to load, I used <a href="https://github.com/afarkas/lazysizes/">lazysizes</a> to lazy-load the images, hence, better performance. Projects are loaded with <a href="https://turbowarp.org">Turbowarp</a> since Scratch's engine is much slower.<br><br> &nbsp;&nbsp;&nbsp;Also did you know you can post <a href="/gists">block gists</a> with this thing?
+        </cnt>
+
+    <script>
+        function checkCookie() {
+        if (getCookie('username') && getCookie('password')) {
+        document.getElementById('login').remove()
+        document.getElementById('comment').type = 'text'
+        document.getElementById('send').type = 'submit'
+        document.getElementById('text').innerHTML = `&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hey ${ decodeBase64(getCookie('username'))}!&nbsp;&nbsp;&nbsp;`
+        document.getElementById('text').href = ''
+        }
+        }
+    </script>
+</html>

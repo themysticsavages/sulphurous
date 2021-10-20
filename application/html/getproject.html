@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
     <link rel="shortcut icon" type="image/jpg" href="https://raw.githubusercontent.com/ajskateboarder/stuff/main/more/logo.png">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,10 +7,10 @@
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://scratchhh.tk/projects/.id." />
     <meta property="og:image" content="https://cdn2.scratch.mit.edu/get_image/project/.id._640x372.png" />
-    <meta property="og:description" content="//description" />
+    <meta property="og:description" content="View this project on scratchhh.xyz!" />
 
     <meta name="twitter:card" content="summary_large_image">
-    <script src="lazysizes.min.js" async></script>
+    <script src="https://afarkas.github.io/lazysizes/lazysizes.min.js" async></script>
     <style>
         .jdiv { background-color: #404040; color: #ffffff; width: 450px; padding: 20px; margin: 15px; }
         h2 { margin: 15px; color: white; }
@@ -29,8 +29,10 @@
         .round1 { border-top-left-radius: 15px; border-bottom-left-radius: 15px; border: 1px #404040 solid; }
         .round2 { border-top-right-radius: 15px; border-bottom-right-radius: 15px; }
         .box { background-color: #303030; color: white; border: none; }
+        a { color: #f0f0f0 }
+        a:hover { color:grey }
     </style>
-    <title>//project-title</title>
+    <title>//project</title>
     <body style="background-color: #282828;" onload="checkCookie();">
             <div class="topnav">
                 &nbsp;&nbsp;&nbsp;<a class="active" href="/"><img src="https://raw.githubusercontent.com/ajskateboarder/stuff/main/more/logo.png" width="25">&nbsp;&nbsp;&nbsp;Home</a>
@@ -42,18 +44,17 @@
             </div>
             <br>
     <h2 style="margin: 15px; color:#ffffff">
-        <a href='../..'><img src="https://raw.githubusercontent.com/ajskateboarder/stuff/main/more/logo.png" height="30"></a> //project-title
+        //project-title
         <br>
         <p style="font-size: small;">//rmixstatus</p>
     </h2>
     <div class="jdiv">
-        <a href="https://scratch.mit.edu/projects/.id.">
-          <img src="https://cdn2.scratch.mit.edu/get_image/project/.id._640x372.png" width="200" height="200" class="lazyload">
-        </a>
+      <iframe src="https://turbowarp.org/.id./embed" width="400" height="350" allowtransparency="true" frameborder="0" scrolling="no" allowfullscreen=""></iframe>
         <br><br> 👁 //views views • ⑂ //rem remixes • ✰ //stars stars • ♡ //loves loves
         <br> Uploaded on //sharedate
         <br><br> Wanna use this project locally? Download it <a href="/projects/.id./get">here.</a> <br>
         Export your sprites to scratchblocks <a href="sprites/get">here.</a> <br>
+        <p style="font-size:12px; color: grey">This feature is experimental! It may not work.</p>
         <!--0 Or check out the archive <a href="/archive/search?q=.id.">here.</a> 0-->
     </div>
     <!--1
@@ -122,6 +123,8 @@
         function checkCookie() {
         if (getCookie('username') && getCookie('password')) {
         document.getElementById('login').remove()
+
+        if (new URLSearchParams(window.location.search).has('commented')) { document.getElementById('msg').style.color = 'green'; document.getElementById('msg').innerHTML = '<b>Your comment was posted successfully!</b> (i think)' }
 
         document.getElementById('comment').type = 'text'
         document.getElementById('send').type = 'submit'

@@ -68,6 +68,7 @@ function check() {
     if (getCookie('username') && getCookie('password')) {
         document.getElementById('login').remove()
         document.getElementById('text').hidden = false
+        document.getElementById('gists').hidden = false
 
         let e = getCookie('username'), 
             t = getCookie('password')
